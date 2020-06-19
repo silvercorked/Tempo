@@ -1,7 +1,6 @@
-CREATE TABLE goal (
+CREATE TABLE tag (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  parent_id bigint(20) DEFAULT NULL,
-  goal varchar(100) NOT NULL,
+  tag varchar(15) NOT NULL,
   description varchar(1000) NOT NULL,
   user_id bigint(20) NOT NULL,
   created_at DATETIME NOT NULL,
