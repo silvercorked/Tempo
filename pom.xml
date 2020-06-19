@@ -17,6 +17,9 @@
 	<properties>
 		<java.version>14</java.version>
 		<spring-cloud.version>Hoxton.SR5</spring-cloud.version>
+		<flyway.user>sa</flyway.user>
+        <flyway.password></flyway.password>
+        <flyway.schemas>tempo-schema</flyway.schemas>
 	</properties>
 
 	<dependencies>
@@ -79,6 +82,11 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -106,6 +114,18 @@
 				<configuration>
 					<source>14</source>
 					<target>14</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>4.0.3</version>
+				<configuration>
+					<user>sa</user>
+					<password></password>
+					<schemas>
+						<schema>tempo-schema</schema>
+					</schemas>
 				</configuration>
 			</plugin>
 		</plugins>
