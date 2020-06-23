@@ -80,5 +80,11 @@ public class Goal {
 	}
 	public void setModifiedAt(String modified_at) {
 		this.modified_at = modified_at;
+    }
+    
+    @Override
+	public String toString() {
+		return String.format("{id: %d, goal: %s, description: %s, user: %s",
+			this.getId(), this.getGoal(), this.getDescription(), this.getUser().toString());
 	}
 }

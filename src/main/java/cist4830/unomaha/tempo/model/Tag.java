@@ -53,4 +53,10 @@ public class Tag {
 	public void setModifiedAt(String modified_at) {
 		this.modified_at = modified_at;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("{id: %d, tag: %s, description: %s, user: %s",
+			this.getId(), this.getTag(), this.getDescription(), this.getUser().toString());
+	}
 }
