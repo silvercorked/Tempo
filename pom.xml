@@ -19,7 +19,6 @@
 		<spring-cloud.version>Hoxton.SR5</spring-cloud.version>
 		<flyway.user>sa</flyway.user>
         <flyway.password></flyway.password>
-        <flyway.schemas>tempo-schema</flyway.schemas>
 	</properties>
 
 	<dependencies>
@@ -123,9 +122,6 @@
 				<configuration>
 					<user>sa</user>
 					<password></password>
-					<schemas>
-						<schema>tempo-schema</schema>
-					</schemas>
 				</configuration>
 			</plugin>
 		</plugins>

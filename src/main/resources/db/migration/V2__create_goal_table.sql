@@ -3,6 +3,8 @@ CREATE TABLE goal (
   parent_id bigint(20) DEFAULT NULL,
   goal varchar(100) NOT NULL,
   description varchar(1000) NOT NULL,
+  progress bigint(20) NOT NULL,
+  target bigint(20) NOT NULL,
   user_id bigint(20) NOT NULL,
   created_at DATETIME NOT NULL,
   modified_at DATETIME NOT NULL,
