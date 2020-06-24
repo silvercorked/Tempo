@@ -3,26 +3,26 @@ package cist4830.unomaha.tempo.model;
 public class Goal {
 
     private Long id;
-    private Goal parent;
+    private Long parentId;
     private String goal;
     private String description;
     private Long progress;
     private Long target;
-    private User user;
+    private Long userId;
     private String created_at;
     private String modified_at;
     
     public Goal(String goal) {
         this.goal = goal;
     }
-    public Goal(Long id, Goal parent, String goal, String description, Long progress, Long target, User user, String created_at, String modified_at) {
+    public Goal(Long id, Long parentId, String goal, String description, Long progress, Long target, Long userId, String created_at, String modified_at) {
         this.setId(id);
-        this.setParent(parent);
+        this.setParentId(parentId);
         this.setGoal(goal);
         this.setDescription(description);
         this.setProgress(progress);
         this.setTarget(target);
-        this.setUser(user);
+        this.setUserId(userId);
         this.setCreatedAt(created_at);
         this.setModifiedAt(modified_at);
     }
@@ -33,11 +33,11 @@ public class Goal {
     public void setId(Long id) {
         this.id = id;
     }
-    public Goal getParent() {
-        return this.parent;
+    public Long getParentId() {
+        return this.parentId;
     }
-    public void setParent(Goal parent) {
-        this.parent = parent;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
     public String getGoal() {
         return this.goal;
@@ -63,11 +63,11 @@ public class Goal {
     public void setTarget(Long target) {
         this.target = target;
     }
-    public User getUser() {
-        return this.user;
+    public Long getUserId() {
+        return this.userId;
     }
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
     public String getCreatedAt() {
 		return this.created_at;
@@ -84,7 +84,7 @@ public class Goal {
     
     @Override
 	public String toString() {
-		return String.format("{id: %d, goal: %s, description: %s, user: %s",
-			this.getId(), this.getGoal(), this.getDescription(), this.getUser().toString());
+		return String.format("{id: %d, goal: %s, description: %s, user: %d",
+			this.getId(), this.getGoal(), this.getDescription(), this.getUserId());
 	}
 }

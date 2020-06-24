@@ -20,12 +20,7 @@ import cist4830.unomaha.tempo.repository.mappers.TagMapper;
 public class TagRepository {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	/*id bigint(20) NOT NULL AUTO_INCREMENT,
-	tag varchar(15) NOT NULL,
-	description varchar(1000) NOT NULL,
-	user_id bigint(20) NOT NULL,
-	created_at DATETIME NOT NULL,
-	modified_at DATETIME NOT NULL,*/
+	
 	//create
 	public Tag create(Tag tag) {
 		String sql = "INSERT INTO tag(tag, description, user_id, created_at, modified_at) VALUES (?,?,?,?,?)";
@@ -34,7 +29,7 @@ public class TagRepository {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, tag.getTag());
 			statement.setString(2, tag.getDescription());
-			statement.setLong(3, tag.getUser().getId());
+			statement.setLong(3, tag.getUserId());
 			statement.setString(4, tag.getCreatedAt());
 			statement.setString(5, tag.getModifiedAt());
 			return statement;
@@ -66,7 +61,7 @@ public class TagRepository {
 		String sql = "UPDATE tag " +
 		"SET tag = ?, description = ?, user_id = ?, created_at = ?, modified_at = ? " +
 		"WHERE id = ?";
-		Object[] params = new Object[]{ tag.getTag(), tag.getDescription(), tag.getUser().getId(),
+		Object[] params = new Object[]{ tag.getTag(), tag.getDescription(), tag.getUserId(),
 			tag.getCreatedAt(), tag.getModifiedAt()
 		};
 		return this.jdbcTemplate.update(sql, params) == 1;

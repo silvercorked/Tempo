@@ -6,12 +6,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import cist4830.unomaha.tempo.model.Goal;
 import cist4830.unomaha.tempo.model.User;
 import cist4830.unomaha.tempo.repository.GoalRepository;
 import cist4830.unomaha.tempo.repository.UserRepository;
 
+@Component
 public class GoalMapper implements RowMapper<Goal> {
 	@Autowired
 	private UserRepository userRepository;
@@ -21,17 +23,9 @@ public class GoalMapper implements RowMapper<Goal> {
 
 	@Override
 	public Goal mapRow(ResultSet rs, int rowNum) throws SQLException {
-		Optional<User> possibleUser = userRepository.findUserById(rs.getLong("user_id"));
-		Optional<Goal> possibleGoal = goalRepository.findGoalById(rs.getLong("parent_id"));
-		User user = null;
-		Goal parent = null;
-		if (possibleUser.isPresent())
-			user = possibleUser.get();
-		if (possibleGoal.isPresent())
-			parent = possibleGoal.get();
-		Goal tag = new Goal(rs.getLong("id"), parent, rs.getString("goal")
+		Goal tag = new Goal(rs.getLong("id"), rs.getLong("parent_id"), rs.getString("goal")
 			, rs.getString("description"), rs.getLong("progress"), rs.getLong("target")
-			, user , rs.getString("created_at"), rs.getString("modified_at"));	
+			, rs.getLong("user_id"), rs.getString("created_at"), rs.getString("modified_at"));	
 		return tag;
 	}
 }

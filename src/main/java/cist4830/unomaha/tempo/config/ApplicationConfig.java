@@ -1,4 +1,4 @@
-package cist4830.unomaha.tempo;
+package cist4830.unomaha.tempo.config;
 
 import javax.sql.DataSource;
 
@@ -52,5 +52,4 @@ public class ApplicationConfig {
 	public PasswordEncoder getEncoder() {
     	return new BCryptPasswordEncoder();
 	}
-
 }

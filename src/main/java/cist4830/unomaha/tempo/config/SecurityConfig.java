@@ -1,4 +1,4 @@
-package cist4830.unomaha.tempo.security;
+package cist4830.unomaha.tempo.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

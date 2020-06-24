@@ -31,7 +31,7 @@ public class GoalRepository {
 			statement.setString(2, goal.getDescription());
 			statement.setLong(3, goal.getProgress());
 			statement.setLong(4, goal.getTarget());
-			statement.setLong(5, goal.getUser().getId());
+			statement.setLong(5, goal.getUserId());
 			statement.setString(6, goal.getCreatedAt());
 			statement.setString(7, goal.getModifiedAt());
 			return statement;
@@ -64,7 +64,7 @@ public class GoalRepository {
 		"SET goal = ?, description = ?, progress = ?, target = ?, user_id = ?, created_at = ?, modified_at = ? " +
 		"WHERE id = ?";
 		Object[] params = new Object[]{goal.getGoal(), goal.getDescription(), goal.getProgress(),
-			goal.getTarget(), goal.getUser().getId(), goal.getCreatedAt(), goal.getModifiedAt()
+			goal.getTarget(), goal.getUserId(), goal.getCreatedAt(), goal.getModifiedAt()
 		};
 		return this.jdbcTemplate.update(sql, params) == 1;
 	}
