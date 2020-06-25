@@ -1,5 +1,6 @@
 package cist4830.unomaha.tempo.controllers;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import cist4830.unomaha.tempo.model.Goal;
 import cist4830.unomaha.tempo.repository.GoalRepository;
@@ -46,7 +47,14 @@ public class GoalController {
 	}
 
 	@PostMapping()
-	public String store() {
-		return "";
+	public String store(@RequestParam(name = "goal") String goalstr
+		, @RequestParam(name = "description") String description
+		, @RequestParam(name = "progress") Long progress
+		, @RequestParam(name = "target") Long target) {
+		java.util.Date utilDate = new java.util.Date();
+		String now = new Date(utilDate.getTime()).toString();
+		Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, (long) 1, now, now);
+		goalRepository.create(goal);
+		return "redirect:/goals";
 	}
 }

@@ -38,7 +38,7 @@ public class Tag {
 	public Long getUserId() {
 		return this.userId;
 	}
-	public void setUserId(Long user) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	public String getCreatedAt() {
