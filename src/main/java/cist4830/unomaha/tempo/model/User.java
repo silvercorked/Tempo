@@ -1,26 +1,19 @@
 package cist4830.unomaha.tempo.model;
 
-import java.time.LocalDate;
-
-import org.springframework.data.annotation.Id;
-
 public class User {
-	private final @Id Long id;
-	private final String name;
-	private final String username;
-	private final String password;
-	private final LocalDate created_at;
-	private final LocalDate modified_at;
+	private Long id;
+	private String name;
+	private String username;
+	private String password;
+	private String created_at;
+	private String modified_at;
 
-	static User of(String name, String username, LocalDate created_at) {
-		return new User((Long) null, name, username, (String) null, created_at, (LocalDate) null);
+	public User() {
+		this.id = null;
+		this.name = this.username = this.password = null;
+		this.created_at = this.modified_at = null;
 	}
-
-	static User of(Long id, String name, String username, LocalDate created_at) {
-		return new User(id, name, username, (String) null, created_at, (LocalDate) null);
-	}
-
-	public User(Long id, String name, String username, String password, LocalDate created_at, LocalDate modified_at) {
+	public User(Long id, String name, String username, String password, String created_at, String modified_at) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -28,26 +21,52 @@ public class User {
 		this.created_at = created_at;
 		this.modified_at = modified_at;
 	}
-
-	User withId(Long id) {
-		return new User(id, this.name, this.username, this.password, this.created_at, this.modified_at);
-	}
+	/*public User(Long id, String name, String username, String password, String created_at, String modified_at) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.username = username;
+		this.created_at = LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		this.modified_at = LocalDateTime.parse(modified_at, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+	}*/
 	public Long getId() {
 		return this.id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getName() {
 		return this.name;
 	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getUsername() {
 		return this.username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return this.password;
 	}
-	public LocalDate getCreatedAt() {
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getCreatedAt() {
 		return this.created_at;
 	}
-	public LocalDate getModifiedAt() {
+	public void setCreatedAt(String created_at) {
+		this.created_at = created_at;
+	}
+	public String getModifiedAt() {
 		return this.modified_at;
+	}
+	public void setModifiedAt(String modified_at) {
+		this.modified_at = modified_at;
+	}
+	@Override
+	public String toString() {
+		return String.format("{id: %d, name: %s, username: %s", this.getId(), this.getName(), this.getUsername());
 	}
 }
