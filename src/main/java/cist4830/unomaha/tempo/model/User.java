@@ -8,11 +8,6 @@ public class User {
 	private String created_at;
 	private String modified_at;
 
-	public User() {
-		this.id = null;
-		this.name = this.username = this.password = null;
-		this.created_at = this.modified_at = null;
-	}
 	public User(Long id, String name, String username, String password, String created_at, String modified_at) {
 		this.id = id;
 		this.name = name;
@@ -21,14 +16,7 @@ public class User {
 		this.created_at = created_at;
 		this.modified_at = modified_at;
 	}
-	/*public User(Long id, String name, String username, String password, String created_at, String modified_at) {
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.username = username;
-		this.created_at = LocalDateTime.parse(created_at, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		this.modified_at = LocalDateTime.parse(modified_at, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-	}*/
+
 	public Long getId() {
 		return this.id;
 	}
