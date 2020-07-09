@@ -5,58 +5,53 @@ import org.junit.jupiter.api.Test;
 
 import cist4830.unomaha.tempo.model.Goal;
 
-import java.time.LocalDate;
-import java.time.Month;
-
-
 public class TestGoal {
-/*
+
+    private final Goal goal = new Goal(10000L, 20000L, "Test", "TestDescription", 30000L, 40000L, 50000L, "07/09/2020", "07/09/2020");
+
     @Test
-    public void testNewGoalState() {
-        Goal goal = new Goal("Write Code");
-        Assertions.assertEquals(goal.getName(), "Write Code");
-        Assertions.assertFalse(goal.isCompleted());
+    public void testGetID() {
+        Assertions.assertEquals(10000L, goal.getId());
     }
 
     @Test
-    public void testGoalCompleted() {
-        Goal goal = new Goal("Write Unit Tests");
-        goal.setCompleted(true);
-        Assertions.assertTrue(goal.isCompleted());
+    public void testGetParentId() {
+        Assertions.assertEquals(20000L, goal.getParentId());
     }
 
     @Test
-    public void testSubtasks() {
-        Goal goal = new Goal("Write Unit Tests");
-        Goal subtask = new Goal("Add JUnit");
-        goal.getSubTasks().add(subtask);
-        Assertions.assertTrue(goal.getSubTasks().contains(subtask));
+    public void testGetGoalName() {
+        Assertions.assertEquals("Test", goal.getGoal());
     }
 
     @Test
-    public void testRenameGoal() {
-        Goal goal = new Goal("Write Tests");
-        goal.setName("Actually, Eat Cheetos");
-        Assertions.assertTrue(goal.getName().equalsIgnoreCase("Actually, Eat Cheetos"));
+    public void testGetGoalDescription() {
+        Assertions.assertEquals("TestDescription", goal.getDescription());
     }
 
     @Test
-    public void testDueDate() {
-        Goal goal = new Goal("graduate");
-        goal.setDueDate(LocalDate.of(2021, Month.MAY, 1));
-        Assertions.assertEquals(goal.getDueDate().getDayOfMonth(), 1);
-        Assertions.assertEquals(goal.getDueDate().getYear(), 2021);
-        Assertions.assertEquals(goal.getDueDate().getMonth(), Month.MAY);
+    public void testGetProgress() {
+        Assertions.assertEquals(30000L, goal.getProgress());
     }
 
     @Test
-    public void testOverDue() {
-        Goal goal = new Goal("graduate");
-        goal.setDueDate(LocalDate.now().plusYears(1));
-        Assertions.assertFalse(goal.isCompleted());
-        Assertions.assertFalse(goal.isOverdue());
+    public void testGetTarget() {
+        Assertions.assertEquals(40000L, goal.getTarget());
+    }
 
-        goal.setDueDate(LocalDate.now().minusYears(2));
-        Assertions.assertTrue(goal.isOverdue());
-    }*/
+    @Test
+    public void testGetUserId() {
+        Assertions.assertEquals(50000L, goal.getUserId());
+    }
+
+    @Test
+    public void testGetCreatedAt() {
+        Assertions.assertEquals("07/09/2020", goal.getCreatedAt());
+    }
+
+    @Test
+    public void testGetModifiedAt() {
+        Assertions.assertEquals("07/09/2020", goal.getModifiedAt());
+    }
+
 }

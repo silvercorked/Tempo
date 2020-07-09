@@ -15,6 +15,7 @@ public class Goal {
     public Goal(String goal) {
         this.goal = goal;
     }
+
     public Goal(Long id, Long parentId, String goal, String description, Long progress, Long target, Long userId, String created_at, String modified_at) {
         this.setId(id);
         this.setParentId(parentId);
