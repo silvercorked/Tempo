@@ -23,4 +23,19 @@ public class TestTag {
         Assertions.assertEquals("TestDescription", tag.getDescription());
     }
 
+    @Test
+    public void testGetUserId() {
+        Assertions.assertEquals(20000L, tag.getUserId());
+    }
+
+    @Test
+    public void testGetCreatedAt() {
+        Assertions.assertEquals("07/09/2020", tag.getCreatedAt());
+    }
+
+    @Test
+    public void testGetModifiedAt() {
+        Assertions.assertEquals("07/09/2020", tag.getModifiedAt());
+    }
+
 }
