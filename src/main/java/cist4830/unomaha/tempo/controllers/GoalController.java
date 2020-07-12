@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import cist4830.unomaha.tempo.model.Goal;
 import cist4830.unomaha.tempo.repository.GoalRepository;
 import cist4830.unomaha.tempo.repository.TagRepository;
 import cist4830.unomaha.tempo.repository.UserRepository;
+
+import cist4830.unomaha.tempo.controllers.errors.*;
 
 @Controller
 @RequestMapping(value = "/goals")
@@ -53,7 +56,7 @@ public class GoalController {
 	}
 	
 	@GetMapping(value = "{id}/edit")
-	public String edit(@PathVariable Long id) {
+	public String edit(Model model, @PathVariable Long id) {
 		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		model.addAttribute("goal", goal);
 		return "goals/edit";
@@ -66,7 +69,7 @@ public class GoalController {
 		, @RequestParam(name = "target") Long target) {
 		java.util.Date utilDate = new java.util.Date();
 		String now = new Date(utilDate.getTime()).toString();
-		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotfoundException(); });
+		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		goal.setGoal(goalstr); goal.setDescription(description);
 		goal.setProgress(progress); goal.setTarget(target); goal.setModifiedAt(now);
 		goalRepository.update(goal);
@@ -74,14 +77,14 @@ public class GoalController {
 	}
 
 	@GetMapping(value = "{id}")
-	public String show(@PathVaraible Long id) {
+	public String show(Model model, @PathVariable Long id) {
 		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		model.addAttribute("goal", goal);
 		return "goals/show";
 	}
 
 	@PostMapping(value = "{id}/delete")
-	public String delete(@PathVaraible Long id) {
+	public String delete(@PathVariable Long id) {
 		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		// ^^ check if it exists first
 		goalRepository.delete(id);

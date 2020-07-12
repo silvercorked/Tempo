@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import cist4830.unomaha.tempo.model.Tag;
 import cist4830.unomaha.tempo.repository.GoalRepository;
 import cist4830.unomaha.tempo.repository.TagRepository;
 import cist4830.unomaha.tempo.repository.UserRepository;
+
+import cist4830.unomaha.tempo.controllers.errors.*;
 
 @Controller
 @RequestMapping(value = "/tags")
@@ -45,13 +48,13 @@ public class TagController {
 		, @RequestParam(name = "description") String description) {
 		java.util.Date utilDate = new java.util.Date();
 		String now = new Date(utilDate.getTime()).toString();
-		Tag tag = new Tag((long) 0, null, tagstr, description, (long) 1, now, now);
+		Tag tag = new Tag((long) 0, tagstr, description, (long) 1, now, now);
 		tagRepository.create(tag);
 		return "redirect:/tags";
 	}
 	
 	@GetMapping(value = "{id}/edit")
-	public String edit(@PathVariable Long id) {
+	public String edit(Model model, @PathVariable Long id) {
 		Tag tag = tagRepository.findTagById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		model.addAttribute("tag", tag);
 		return "tags/edit";
@@ -62,21 +65,21 @@ public class TagController {
 		, @RequestParam(name = "description") String description) {
 		java.util.Date utilDate = new java.util.Date();
 		String now = new Date(utilDate.getTime()).toString();
-		Tag tag = tagRepository.findTagById(id).orElseThrow(() -> { throw new ResourceNotfoundException(); });
+		Tag tag = tagRepository.findTagById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		tag.setTag(tagstr); tag.setDescription(description); tag.setModifiedAt(now);
 		tagRepository.update(tag);
 		return "redirect:/tags/" + id;
 	}
 
 	@GetMapping(value = "{id}")
-	public String show(@PathVaraible Long id) {
+	public String show(Model model, @PathVariable Long id) {
 		Tag tag = tagRepository.findTagById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		model.addAttribute("tag", tag);
 		return "tags/show";
 	}
 
 	@PostMapping(value = "{id}/delete")
-	public String delete(@PathVaraible Long id) {
+	public String delete(@PathVariable Long id) {
 		Tag tag = tagRepository.findTagById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		// ^^ check if it exists first
 		tagRepository.delete(id);
