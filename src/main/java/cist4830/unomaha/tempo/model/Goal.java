@@ -8,6 +8,7 @@ public class Goal {
     private String description;
     private Long progress;
     private Long target;
+    private String due_date;
     private Long userId;
     private String created_at;
     private String modified_at;
@@ -24,17 +25,19 @@ public class Goal {
      * @param description
      * @param progress
      * @param target
+     * @param due_date
      * @param userId
      * @param created_at
      * @param modified_at
      */
-    public Goal(Long id, Long parentId, String goal, String description, Long progress, Long target, Long userId, String created_at, String modified_at) {
+    public Goal(Long id, Long parentId, String goal, String description, Long progress, Long target, String due_date, Long userId, String created_at, String modified_at) {
         this.setId(id);
         this.setParentId(parentId);
         this.setGoal(goal);
         this.setDescription(description);
         this.setProgress(progress);
         this.setTarget(target);
+        this.setDueDate(due_date);
         this.setUserId(userId);
         this.setCreatedAt(created_at);
         this.setModifiedAt(modified_at);
@@ -75,6 +78,12 @@ public class Goal {
     }
     public void setTarget(Long target) {
         this.target = target;
+    }
+    public String getDueDate() {
+        return this.due_date;
+    }
+    public void setDueDate(String due_date) {
+        this.due_date = due_date;
     }
     public Long getUserId() {
         return this.userId;

@@ -47,10 +47,11 @@ public class GoalController {
 	public String store(@RequestParam(name = "goal") String goalstr
 		, @RequestParam(name = "description") String description
 		, @RequestParam(name = "progress") Long progress
-		, @RequestParam(name = "target") Long target) {
+		, @RequestParam(name = "target") Long target
+		, @RequestParam(name = "due_date") String due_date) {
 		java.util.Date utilDate = new java.util.Date();
 		String now = new Date(utilDate.getTime()).toString();
-		Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, (long) 1, now, now);
+		Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, due_date, (long) 1, now, now);
 		goalRepository.create(goal);
 		return "redirect:/goals";
 	}
@@ -66,12 +67,13 @@ public class GoalController {
 	public String update(@PathVariable Long id, @RequestParam(name = "goal") String goalstr
 		, @RequestParam(name = "description") String description
 		, @RequestParam(name = "progress") Long progress
-		, @RequestParam(name = "target") Long target) {
+		, @RequestParam(name = "target") Long target
+		, @RequestParam(name = "due_date") String due_date) {
 		java.util.Date utilDate = new java.util.Date();
 		String now = new Date(utilDate.getTime()).toString();
 		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
-		goal.setGoal(goalstr); goal.setDescription(description);
-		goal.setProgress(progress); goal.setTarget(target); goal.setModifiedAt(now);
+		goal.setGoal(goalstr); goal.setDescription(description); goal.setProgress(progress);
+		goal.setTarget(target); goal.setDueDate(due_date); goal.setModifiedAt(now);
 		goalRepository.update(goal);
 		return "redirect:/goals/" + id;
 	}

@@ -23,7 +23,7 @@ public class GoalRepository {
 
 	//create
 	public Goal create(Goal goal) {
-		String sql = "INSERT INTO goal(goal, description, progress, target, user_id, created_at, modified_at) VALUES (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO goal(goal, description, progress, target, due_date, user_id, created_at, modified_at) VALUES (?,?,?,?,?,?,?,?)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		this.jdbcTemplate.update(connection -> {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -31,9 +31,10 @@ public class GoalRepository {
 			statement.setString(2, goal.getDescription());
 			statement.setLong(3, goal.getProgress());
 			statement.setLong(4, goal.getTarget());
-			statement.setLong(5, goal.getUserId());
-			statement.setString(6, goal.getCreatedAt());
-			statement.setString(7, goal.getModifiedAt());
+			statement.setString(5, goal.getDueDate());
+			statement.setLong(6, goal.getUserId());
+			statement.setString(7, goal.getCreatedAt());
+			statement.setString(8, goal.getModifiedAt());
 			return statement;
 		}, keyHolder);
 
@@ -61,10 +62,10 @@ public class GoalRepository {
 	//update
 	public boolean update(Goal goal) {
 		String sql = "UPDATE goal " +
-		"SET goal = ?, description = ?, progress = ?, target = ?, user_id = ?, created_at = ?, modified_at = ? " +
+		"SET goal = ?, description = ?, progress = ?, target = ?, due_date = ?, user_id = ?, created_at = ?, modified_at = ? " +
 		"WHERE id = ?";
 		Object[] params = new Object[]{goal.getGoal(), goal.getDescription(), goal.getProgress(),
-			goal.getTarget(), goal.getUserId(), goal.getCreatedAt(), goal.getModifiedAt()
+			goal.getTarget(), goal.getDueDate(), goal.getUserId(), goal.getCreatedAt(), goal.getModifiedAt()
 		};
 		return this.jdbcTemplate.update(sql, params) == 1;
 	}
