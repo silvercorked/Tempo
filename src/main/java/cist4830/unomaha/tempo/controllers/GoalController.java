@@ -31,12 +31,6 @@ public class GoalController {
 	@GetMapping
 	public String index(Model model) {
 		System.out.println("attempted to hit goals page");
-		Optional<Goal> possibleGoal = goalRepository.findGoalById((long) 1);
-		Goal goal = possibleGoal.orElseGet(() -> {
-			Goal goalTemp = new Goal((long) 2, null, "Write a spring boot program", "Spring boot... ", (long) 10,
-					(long) 100, (long) 1, "2019-10-20 15:59:20", "2019-10-20 15:59:20");
-			return goalRepository.create(goalTemp);
-		});
 		model.addAttribute("goals", goalRepository.findAll());
 		return "goals/index";
 	}
@@ -55,6 +49,42 @@ public class GoalController {
 		String now = new Date(utilDate.getTime()).toString();
 		Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, (long) 1, now, now);
 		goalRepository.create(goal);
+		return "redirect:/goals";
+	}
+	
+	@GetMapping(value = "{id}/edit")
+	public String edit(@PathVariable Long id) {
+		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
+		model.addAttribute("goal", goal);
+		return "goals/edit";
+	}
+
+	@PostMapping(value = "{id}")
+	public String update(@PathVariable Long id, @RequestParam(name = "goal") String goalstr
+		, @RequestParam(name = "description") String description
+		, @RequestParam(name = "progress") Long progress
+		, @RequestParam(name = "target") Long target) {
+		java.util.Date utilDate = new java.util.Date();
+		String now = new Date(utilDate.getTime()).toString();
+		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotfoundException(); });
+		goal.setGoal(goalstr); goal.setDescription(description);
+		goal.setProgress(progress); goal.setTarget(target); goal.setModifiedAt(now);
+		goalRepository.update(goal);
+		return "redirect:/goals/" + id;
+	}
+
+	@GetMapping(value = "{id}")
+	public String show(@PathVaraible Long id) {
+		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
+		model.addAttribute("goal", goal);
+		return "goals/show";
+	}
+
+	@PostMapping(value = "{id}/delete")
+	public String delete(@PathVaraible Long id) {
+		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
+		// ^^ check if it exists first
+		goalRepository.delete(id);
 		return "redirect:/goals";
 	}
 }
