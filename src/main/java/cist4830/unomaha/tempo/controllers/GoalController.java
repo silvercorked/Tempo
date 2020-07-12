@@ -20,7 +20,7 @@ import cist4830.unomaha.tempo.repository.UserRepository;
 import cist4830.unomaha.tempo.controllers.errors.*;
 
 @Controller
-@RequestMapping(value = "/goals")
+@RequestMapping(value = "/")
 public class GoalController {
 	@Autowired
 	private UserRepository userRepository;
