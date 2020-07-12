@@ -7,7 +7,7 @@ import cist4830.unomaha.tempo.model.Goal;
 
 public class TestGoal {
 
-    private final Goal goal = new Goal(10000L, 20000L, "Test", "TestDescription", 30000L, 40000L, 50000L, "07/09/2020", "07/09/2020");
+    private final Goal goal = new Goal(10000L, 20000L, "Test", "TestDescription", 30000L, 40000L, "07/09/2020", 50000L, "07/09/2020", "07/09/2020");
 
     @Test
     public void testGetID() {
@@ -37,6 +37,11 @@ public class TestGoal {
     @Test
     public void testGetTarget() {
         Assertions.assertEquals(40000L, goal.getTarget());
+    }
+
+    @Test
+    public void testGetDueDate() {
+        Assertions.assertEquals("07/09/2020", goal.getDueDate());
     }
 
     @Test
