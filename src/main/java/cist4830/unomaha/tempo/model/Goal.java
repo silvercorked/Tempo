@@ -16,6 +16,18 @@ public class Goal {
         this.goal = goal;
     }
 
+    /**
+     * Goal Constructor.
+     * @param id
+     * @param parentId
+     * @param goal
+     * @param description
+     * @param progress
+     * @param target
+     * @param userId
+     * @param created_at
+     * @param modified_at
+     */
     public Goal(Long id, Long parentId, String goal, String description, Long progress, Long target, Long userId, String created_at, String modified_at) {
         this.setId(id);
         this.setParentId(parentId);
