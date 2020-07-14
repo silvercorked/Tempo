@@ -40,7 +40,7 @@ public class GoalController {
 
 	@GetMapping(value = "/create")
 	public String create() {
-		return "goals/add";
+		return "goals/create";
 	}
 
 	@PostMapping()
@@ -53,7 +53,7 @@ public class GoalController {
 		String now = new Date(utilDate.getTime()).toString();
 		Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, due_date.toString(), (long) 1, now, now);
 		goalRepository.create(goal);
-		return "redirect:/goals";
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "{id}/edit")
@@ -75,7 +75,7 @@ public class GoalController {
 		goal.setGoal(goalstr); goal.setDescription(description); goal.setProgress(progress);
 		goal.setTarget(target); goal.setDueDate(due_date.toString()); goal.setModifiedAt(now);
 		goalRepository.update(goal);
-		return "redirect:/goals/" + id;
+		return "redirect:/" + id;
 	}
 
 	@GetMapping(value = "{id}")
@@ -90,6 +90,6 @@ public class GoalController {
 		Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		// ^^ check if it exists first
 		goalRepository.delete(id);
-		return "redirect:/goals";
+		return "redirect:/";
 	}
 }

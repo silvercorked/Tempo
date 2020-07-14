@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <head>
-	<link rel="stylesheet" href="main.css" />
 	<!-- CSS only -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -14,7 +13,7 @@
 <div id="inputHeader" class="header container">
 	<div class="row">
 		<div class="col-12">
-			<form method="POST" action="/goals">
+			<form method="POST" th:action="'/' + ${goal.id}">
 				<div class="form-group">
 					<label for="goal">Goal</label>
 					<input type="text" class="form-control" id="goal" th:value="${goal.goal}" name="goal" aria-describedby="goalHelp">
@@ -37,7 +36,7 @@
 				<div class="form-group">
 					<label for="dueDate">Due Date</label>
 					<!-- placeholder workaround for Safari :( shouldn't affect other browsers-->
-					<input type="date" placeholder="yyyy-mm-dd" class="form-control" th:value="${goal.due_date}" id="dueDate" name="dueDate" aria-describedby="dueDateHelp">
+					<input type="date" placeholder="yyyy-mm-dd" class="form-control" th:value="${goal.dueDateFormatted}" id="dueDate" name="due_date" aria-describedby="dueDateHelp">
 					<small id="dueDateHelp" class="form-text text-muted">Does this goal have a due date?</small>
 				</div>
 				<button type="submit" class="btn btn-primary float-right">Submit</button>

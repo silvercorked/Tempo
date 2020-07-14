@@ -40,7 +40,7 @@ public class TagController {
 
 	@GetMapping(value = "/create")
 	public String create() {
-		return "tags/add";
+		return "tags/create";
 	}
 
 	@PostMapping()

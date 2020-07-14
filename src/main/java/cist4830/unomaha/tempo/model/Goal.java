@@ -85,6 +85,9 @@ public class Goal {
     public void setDueDate(String due_date) {
         this.due_date = due_date;
     }
+    public String getDueDateFormatted() {
+        return this.due_date.split(" ")[0];
+    }
     public Long getUserId() {
         return this.userId;
     }
