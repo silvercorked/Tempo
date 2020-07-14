@@ -10,6 +10,7 @@
 	<title>Goals</title>
 </head>
 <body>
+	<div th:replace="fragments/header :: header"></div>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -25,13 +26,18 @@
 				</div>
 				<div class="row">
 					<div class="col-12">
+						<p th:text="'Description: ' + ${goal.description}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
                         <p th:text="'Progress: ' + ${goal.progress} + ' / ' + ${goal.target}"></p>
                     </div>
 				</div>
 				<div class="row">
 					<div class="col-12">
 						<div class="progress">
-							<div class="progress-bar" role="progressbar" th:style="'width: calc(' + ${goal.progress} + ' / ' + ${goal.target} + ')%'" aria-valuenow="${goal.progress}" aria-valuemin="0" aria-valuemax="${goal.target}"></div>
+							<div class="progress-bar" role="progressbar" th:style="'width: calc(' + ${goal.progress} + '* calc(100% / ' + ${goal.target} + '))'" th:aria-valuenow="${goal.progress}" aria-valuemin="0" th:aria-valuemax="${goal.target}"></div>
 						</div>
 					</div>
 				</div>
@@ -42,12 +48,14 @@
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<a class="btn btn-primary float-right mr-2" th:href="'/' + ${goal.id} + '/edit'">Edit</a>
-						<a class="btn btn-primary float-right" th:href="'/' + ${goal.id} + '/delete'">Delete</a>
+						<a class="btn btn-primary float-right ml-2" th:href="'/' + ${goal.id} + '/edit'">Edit</a>
+						<form method="POST" th:action="'/' + ${goal.id} + '/delete'">
+							<input type="hidden" value="${goal.id}">
+							<button class="btn btn-primary float-right" type="submit">Delete</a>
+						</form>
                     </div>
 				</div>
             </div>
         </div>
     </div>
 </body>
-</html>

@@ -10,6 +10,7 @@
 	<title>Goals</title>
 </head>
 <body>
+    <div th:replace="fragments/header :: header"></div>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -18,30 +19,29 @@
                         <p class="h2">Goals</p>
                     </div>
                     <div class="col-4">
-                        <a class="btn btn-primary" href="/create">Create a Goal</a>
+                        <a class="btn btn-primary float-right" href="/create">Create a Goal</a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-4 text-center">
                         <p>Goal</p>
                     </div>
-                    <div class="col-5">
+                    <div class="col-6 text-center">
                         <p>Description</p>
                     </div>
                 </div>
                 <div class="row" th:each="goal: ${goals}">
-                    <div class="col-3">
+                    <div class="col-4">
                         <p th:text="${goal.goal}"></p>
                     </div>
-                    <div class="col-5">
+                    <div class="col-6">
                         <p th:text="${goal.description}"></p>
                     </div>
                     <div class="col-2">
-                        <a class="btn btn-primary" th:href="'/' + ${goal.id}">View</a>
+                        <a class="btn btn-primary float-right" th:href="'/' + ${goal.id}">View</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-</html>
