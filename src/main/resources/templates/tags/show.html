@@ -10,37 +10,41 @@
 	<title>Goals</title>
 </head>
 <body>
-    <div th:replace="fragments/header :: header"></div>
+	<div th:replace="fragments/header :: header"></div>
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="row">
-                    <div class="col-8">
-                        <p class="h2">Goals</p>
-                    </div>
-                    <div class="col-4">
-                        <a class="btn btn-primary float-right" href="/create">Create a Goal</a>
+                    <div class="col-12">
+                        <p class="h2">Tags</p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4 text-center">
-                        <p>Goal</p>
+                    <div class="col-12">
+						<p th:text="'Tag: ' + ${tag.tag}"></p>
                     </div>
-                    <div class="col-6 text-center">
-                        <p>Description</p>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<p th:text="'Description: ' + ${tag.description}"></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<a th:each="goal: ${goals}" th:href="'/' + ${goal.id}">
+							<p th:text="${goal.goal}"></p>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<a class="btn btn-primary float-right ml-2" th:href="'/tags/' + ${tag.id} + '/edit'">Edit</a>
+						<form method="POST" th:action="'/tags/' + ${tag.id} + '/delete'">
+							<input type="hidden" value="${tag.id}">
+							<button class="btn btn-primary float-right" type="submit">Delete</a>
+						</form>
                     </div>
-                </div>
-                <div class="row" th:each="goal: ${goals}">
-                    <div class="col-4">
-                        <p th:text="${goal.goal}"></p>
-                    </div>
-                    <div class="col-6">
-                        <p th:text="${goal.description}"></p>
-                    </div>
-                    <div class="col-2">
-                        <a class="btn btn-primary float-right" th:href="'/' + ${goal.id}">View</a>
-                    </div>
-                </div>
+				</div>
             </div>
         </div>
     </div>
