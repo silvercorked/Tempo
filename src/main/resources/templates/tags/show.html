@@ -31,7 +31,9 @@
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<p>This will be used to show off related goals</p>
+						<a th:each="goal: ${goals}" th:href="'/' + ${goal.id}">
+							<p th:text="${goal.goal}"></p>
+						</a>
 					</div>
 				</div>
 				<div class="row">

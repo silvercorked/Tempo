@@ -75,7 +75,7 @@ public class TagRepository {
 	}
 	//gather goals
 	public List<Goal> getGoals(Tag tag) {
-		String sql = "SELECT * FROM goal_tag_assoc WHERE tag_id = ?";
+		String sql = "SELECT g.*, gta.tag_id, gta.goal_id FROM goal_tag_assoc AS gta LEFT JOIN goal AS g ON g.id = gta.goal_id WHERE gta.tag_id = ?";
 		return this.jdbcTemplate.query(sql,
 			new GoalMapper(),
 			tag.getId()

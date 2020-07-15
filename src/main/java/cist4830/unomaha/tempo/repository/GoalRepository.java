@@ -71,8 +71,8 @@ public class GoalRepository {
 		String sql = "UPDATE goal " +
 		"SET goal = ?, description = ?, progress = ?, target = ?, due_date = ?, user_id = ?, created_at = ?, modified_at = ? " +
 		"WHERE id = ?";
-		Object[] params = new Object[]{goal.getGoal(), goal.getDescription(), goal.getProgress(),
-			goal.getTarget(), goal.getDueDate(), goal.getUserId(), goal.getCreatedAt(), goal.getModifiedAt()
+		Object[] params = new Object[]{goal.getGoal(), goal.getDescription(), goal.getProgress(),goal.getTarget(),
+			goal.getDueDate(), goal.getUserId(), goal.getCreatedAt(), goal.getModifiedAt(), goal.getId()
 		};
 		return this.jdbcTemplate.update(sql, params) == 1;
 	}
@@ -86,9 +86,9 @@ public class GoalRepository {
 		List<Tag> tags = getTags(goal);
 		String sql;
 		if (tags.stream().anyMatch((Tag t) -> tag.getId() == t.getId())){
-			sql = "SELECT id FROM goal_tag_assoc WHERE goal_id = ? AND tag_id = ?";
+			sql = "SELECT * FROM goal_tag_assoc WHERE goal_id = ? AND tag_id = ?";
 			return Optional.of(this.jdbcTemplate.queryForObject(sql
-				, new Object[] { goal.getId(), tag.getTag() }, new GoalTagAssocMapper()))
+				, new Object[] { goal.getId(), tag.getId() }, new GoalTagAssocMapper()))
 				.orElseThrow(() -> { throw new ResourceNotFoundException(); })
 				.getId();
 		}
@@ -113,7 +113,7 @@ public class GoalRepository {
 	}
 	//gather tags
 	public List<Tag> getTags(Goal goal) {
-		String sql = "SELECT * FROM goal_tag_assoc WHERE goal_id = ?";
+		String sql = "SELECT t.*, gta.tag_id, gta.goal_id FROM goal_tag_assoc AS gta LEFT JOIN tag AS t ON t.id = gta.tag_id WHERE gta.goal_id = ?";
 		return this.jdbcTemplate.query(sql,
 			new TagMapper(),
 			goal.getId()
