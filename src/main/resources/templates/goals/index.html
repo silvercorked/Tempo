@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<head>
+<head xmlns:th="http://www.w3.org/1999/xhtml">
 	<!-- CSS only -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -23,13 +23,29 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p>Goal</p>
                     </div>
-                    <div class="col-6 text-center">
+                    <div class="col-6">
                         <p>Description</p>
                     </div>
+                    <hr width="60%" align="left">
                 </div>
+<!--                <table class="table table-striped">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th scope="col">Goal</th>-->
+<!--                            <th scope="col">Description</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                        <tr th:each="goal: ${goals}}">-->
+<!--                            <th scope="row" th:each="goal: ${goal.goal}"></th>-->
+<!--                            <th scope="row" th:each="goal: ${goal.description}"></th>-->
+<!--                        </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+
                 <div class="row" th:each="goal: ${goals}">
                     <div class="col-4">
                         <p th:text="${goal.goal}"></p>
@@ -40,6 +56,7 @@
                     <div class="col-2">
                         <a class="btn btn-primary float-right" th:href="'/' + ${goal.id}">View</a>
                     </div>
+                    <hr width="60%" align="left">
                 </div>
             </div>
         </div>
