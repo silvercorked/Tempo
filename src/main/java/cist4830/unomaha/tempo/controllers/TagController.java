@@ -75,6 +75,7 @@ public class TagController {
 	public String show(Model model, @PathVariable Long id) {
 		Tag tag = tagRepository.findTagById(id).orElseThrow(() -> { throw new ResourceNotFoundException(); });
 		model.addAttribute("tag", tag);
+		model.addAttribute("goals", tagRepository.getGoals(tag));
 		return "tags/show";
 	}
 
