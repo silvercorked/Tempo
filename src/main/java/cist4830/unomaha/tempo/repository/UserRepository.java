@@ -1,10 +1,7 @@
 package cist4830.unomaha.tempo.repository;
 
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.List;
-import java.util.Optional;
-
+import cist4830.unomaha.tempo.model.User;
+import cist4830.unomaha.tempo.repository.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -12,8 +9,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import cist4830.unomaha.tempo.model.User;
-import cist4830.unomaha.tempo.repository.mappers.UserMapper;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 @Repository
@@ -30,8 +29,8 @@ public class UserRepository {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getName());
-            statement.setString(4, user.getCreatedAt().toString());
-            statement.setString(5, user.getModifiedAt().toString());
+            statement.setString(4, user.getCreatedAt());
+            statement.setString(5, user.getModifiedAt());
             return statement;
         }, keyHolder);
 
@@ -66,7 +65,7 @@ public class UserRepository {
                 "SET username = ?, password = ?, name = ?, created_at = ?, modified_at = ? " +
                 "WHERE id = ?";
         Object[] params = new Object[]{user.getUsername(), user.getPassword(), user.getName(),
-                user.getCreatedAt().toString(), user.getModifiedAt().toString()};
+                user.getCreatedAt(), user.getModifiedAt()};
         return this.jdbcTemplate.update(sql, params) == 1;
     }
 

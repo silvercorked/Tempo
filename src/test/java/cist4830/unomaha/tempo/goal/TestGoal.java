@@ -1,9 +1,8 @@
 package cist4830.unomaha.tempo.goal;
 
+import cist4830.unomaha.tempo.model.Goal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import cist4830.unomaha.tempo.model.Goal;
 
 public class TestGoal {
 
