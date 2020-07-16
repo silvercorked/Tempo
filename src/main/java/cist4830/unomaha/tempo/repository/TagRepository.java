@@ -12,7 +12,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import cist4830.unomaha.tempo.model.Goal;
 import cist4830.unomaha.tempo.model.Tag;
+import cist4830.unomaha.tempo.repository.mappers.GoalMapper;
 import cist4830.unomaha.tempo.repository.mappers.TagMapper;
 
 @Component
@@ -70,5 +72,13 @@ public class TagRepository {
 		String sql = "DELETE FROM tag WHERE id = ?";
 		Object[] params = new Object[]{ id };
 		return this.jdbcTemplate.update(sql, params) == 1;
+	}
+	//gather goals
+	public List<Goal> getGoals(Tag tag) {
+		String sql = "SELECT g.*, gta.tag_id, gta.goal_id FROM goal_tag_assoc AS gta LEFT JOIN goal AS g ON g.id = gta.goal_id WHERE gta.tag_id = ?";
+		return this.jdbcTemplate.query(sql,
+			new GoalMapper(),
+			tag.getId()
+		);
 	}
 }
