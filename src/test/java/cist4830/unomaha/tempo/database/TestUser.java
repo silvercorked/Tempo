@@ -1,32 +1,25 @@
 package cist4830.unomaha.tempo.database;
 
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.context.annotation.ComponentScan;
-
 import cist4830.unomaha.tempo.model.User;
 import cist4830.unomaha.tempo.repository.UserRepository;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.ComponentScan;
 
 @JdbcTest
 @ComponentScan
 public class TestUser {
 
-	private static final String ALICE_NAME = "Alice";
-	private static final String ALICE_USERNAME = "alice@test.com";
-	private static final String BOB_NAME = "Bob";
-	private static final String BOB_USERNAME = "bob@test.com";
-	private static final int ONE_User = 1;
-	private static final int TWO_UserS = 2;
+    private static final String ALICE_NAME = "Alice";
+    private static final String ALICE_USERNAME = "alice@test.com";
+    private static final String BOB_NAME = "Bob";
+    private static final String BOB_USERNAME = "bob@test.com";
+    private static final int ONE_User = 1;
+    private static final int TWO_UserS = 2;
 
-	private UserRepository userRepository;
+    private UserRepository userRepository;
 
-	private static User alice;
-	private static User bob;
+    private static User alice;
+    private static User bob;
 /*
 	@BeforeAll
 	public static void setUp(){

@@ -1,7 +1,5 @@
 package cist4830.unomaha.tempo.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,24 +11,26 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 @Configuration
 @ComponentScan("cist4830.unomaha.tempo")
 public class ApplicationConfig {
 
-	@Value("${spring.datasource.driverClassName}")
-	private String driverClassName;
+    @Value("${spring.datasource.driverClassName}")
+    private String driverClassName;
 
-	@Value("${spring.datasource.url}")
-	private String url;
+    @Value("${spring.datasource.url}")
+    private String url;
 
-	@Value("${spring.datasource.username}")
-	private String username;
+    @Value("${spring.datasource.username}")
+    private String username;
 
-	@Value("${spring.datasource.password}")
-	private String password;
+    @Value("${spring.datasource.password}")
+    private String password;
 
-	@Bean
-	@Autowired
+    @Bean
+    @Autowired
     public DataSource getDataSource() {
         DriverManagerDataSource dmds = new DriverManagerDataSource();
         dmds.setDriverClassName(driverClassName);
@@ -44,12 +44,12 @@ public class ApplicationConfig {
     public JdbcTemplate getJdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate;
-	}
-	
-	@Bean
-	@Autowired
-	@Qualifier("getDataSource")
-	public PasswordEncoder getEncoder() {
-    	return new BCryptPasswordEncoder();
-	}
+    }
+
+    @Bean
+    @Autowired
+    @Qualifier("getDataSource")
+    public PasswordEncoder getEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
