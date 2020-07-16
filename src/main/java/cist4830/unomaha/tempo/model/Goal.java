@@ -12,13 +12,14 @@ public class Goal {
     private Long userId;
     private String created_at;
     private String modified_at;
-    
+
     public Goal(String goal) {
         this.goal = goal;
     }
 
     /**
      * Goal Constructor.
+     *
      * @param id
      * @param parentId
      * @param goal
@@ -42,74 +43,94 @@ public class Goal {
         this.setCreatedAt(created_at);
         this.setModifiedAt(modified_at);
     }
-    
+
     public Long getId() {
         return this.id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public Long getParentId() {
         return this.parentId;
     }
+
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
+
     public String getGoal() {
         return this.goal;
     }
+
     public void setGoal(String goal) {
         this.goal = goal;
     }
+
     public String getDescription() {
         return this.description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public Long getProgress() {
         return this.progress;
     }
+
     public void setProgress(Long progress) {
         this.progress = progress;
     }
+
     public Long getTarget() {
         return this.target;
     }
+
     public void setTarget(Long target) {
         this.target = target;
     }
+
     public String getDueDate() {
         return this.due_date;
     }
+
     public void setDueDate(String due_date) {
         this.due_date = due_date;
     }
+
     public String getDueDateFormatted() {
         return this.due_date.split(" ")[0];
     }
+
     public Long getUserId() {
         return this.userId;
     }
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
     public String getCreatedAt() {
-		return this.created_at;
-	}
-	public void setCreatedAt(String created_at) {
-		this.created_at = created_at;
-	}
-	public String getModifiedAt() {
-		return this.modified_at;
-	}
-	public void setModifiedAt(String modified_at) {
-		this.modified_at = modified_at;
+        return this.created_at;
     }
-    
+
+    public void setCreatedAt(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getModifiedAt() {
+        return this.modified_at;
+    }
+
+    public void setModifiedAt(String modified_at) {
+        this.modified_at = modified_at;
+    }
+
     @Override
-	public String toString() {
-		return String.format("{id: %d, goal: %s, description: %s, user: %d",
-			this.getId(), this.getGoal(), this.getDescription(), this.getUserId());
-	}
+    public String toString() {
+        return String.format("{id: %d, goal: %s, description: %s, user: %d",
+                this.getId(), this.getGoal(), this.getDescription(), this.getUserId());
+    }
 }
