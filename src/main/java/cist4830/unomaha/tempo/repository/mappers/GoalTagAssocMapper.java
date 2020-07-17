@@ -12,8 +12,7 @@ public class GoalTagAssocMapper implements RowMapper<GoalTagAssoc> {
 
     @Override
     public GoalTagAssoc mapRow(ResultSet rs, int rowNum) throws SQLException {
-        GoalTagAssoc goalTagAssoc = new GoalTagAssoc(rs.getLong("id"), rs.getLong("goal_id")
+        return new GoalTagAssoc(rs.getLong("id"), rs.getLong("goal_id")
                 , rs.getLong("tag_id"), rs.getString("created_at"));
-        return goalTagAssoc;
     }
 }

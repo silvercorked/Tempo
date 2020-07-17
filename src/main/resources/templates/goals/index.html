@@ -34,8 +34,11 @@
                 <div class="col-4">
                     <p>Goal</p>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <p>Description</p>
+                </div>
+                <div class="col-4">
+                    <p>Due Date</p>
                 </div>
                 <hr width="60%" align="left">
             </div>
@@ -58,8 +61,11 @@
                 <div class="col-4">
                     <p th:text="${goal.goal}"></p>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <p th:text="${goal.description}"></p>
+                </div>
+                <div class="col-4">
+                    <p th:text="${goal.dueDate}"></p>
                 </div>
                 <div class="col-2">
                     <a class="btn btn-primary float-right" th:href="'/' + ${goal.id}">View</a>
