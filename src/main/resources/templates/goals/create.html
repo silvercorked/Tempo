@@ -55,14 +55,14 @@
                     <small class="form-text text-muted" id="dueDateHelp">Does this goal have a due date?</small>
                 </div>
                 <div class="form-group">
-                    <label for="recurrence">Recurrence</label>
+                    <label for="recurrence_num">Recurrence</label>
                     <p>
-                        <select id="recurrence">
-                            <option value="None">None</option>
-                            <option value="Daily">Daily</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Yearly">Yearly</option>
+                        <input id="recurrence_num" name="recurrence_num" class="form-text" type="number" min="0" step="1"/>
+                        <select id="recurrence_freq" name="recurrence_freq">
+                            <option value="DAYS">Days</option>
+                            <option value="WEEKS">Weeks</option>
+                            <option value="MONTHS">Months</option>
+                            <option value="YEARS">Years</option>
                         </select>
                     </p>
                     <small class="form-text text-muted" id="recurrenceHelp">Is this a recurring task?</small>

@@ -20,8 +20,17 @@ public class GoalMapper implements RowMapper<Goal> {
 
     @Override
     public Goal mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Goal(rs.getLong("id"), rs.getLong("parent_id"), rs.getString("goal")
-                , rs.getString("description"), rs.getLong("progress"), rs.getLong("target"), rs.getString("due_date")
-                , rs.getString("recurrence_date"),  rs.getLong("user_id"), rs.getString("created_at"), rs.getString("modified_at"));
+        return new Goal(rs.getLong("id"),
+                rs.getLong("parent_id")
+                , rs.getString("goal")
+                , rs.getString("description")
+                , rs.getLong("progress")
+                , rs.getLong("target")
+                , rs.getString("due_date")
+                , rs.getInt("recurrence_num")
+                , rs.getString("recurrence_freq")
+                , rs.getLong("user_id")
+                , rs.getString("created_at")
+                , rs.getString("modified_at"));
     }
 }

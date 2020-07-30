@@ -7,9 +7,10 @@ CREATE TABLE goal (
   target bigint(20) NOT NULL,
   due_date DATETIME NOT NULL,
   user_id bigint(20) NOT NULL,
+  recurrence_num int NOT NULL,
+  recurrence_freq varchar(30) NOT NULL,
   created_at DATETIME NOT NULL,
   modified_at DATETIME NOT NULL,
-  recurrence_date DATETIME NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
