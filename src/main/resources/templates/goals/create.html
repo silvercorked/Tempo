@@ -1,65 +1,79 @@
 <!DOCTYPE html>
 <head>
     <!-- CSS only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
 
     <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    <script crossorigin="anonymous"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-            crossorigin="anonymous"></script>
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- Bootstrap multiselect -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"
+          rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
     <title>Create a Goal</title>
 </head>
 <div th:replace="fragments/header :: header"></div>
-<div id="inputHeader" class="header container">
+<div class="header container" id="inputHeader">
     <div class="row">
         <div class="col-12">
-            <form method="POST" action="/">
+            <form action="/" method="POST">
                 <div class="form-group">
                     <label for="goal">Goal</label>
-                    <input type="text" class="form-control" id="goal" name="goal" aria-describedby="goalHelp">
-                    <small id="goalHelp" class="form-text text-muted">What do you want to accomplish?</small>
+                    <input aria-describedby="goalHelp" class="form-control" id="goal" name="goal" type="text">
+                    <small class="form-text text-muted" id="goalHelp">What do you want to accomplish?</small>
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea type="text" class="form-control" id="description" name="description"></textarea>
+                    <textarea class="form-control" id="description" name="description" type="text"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="progress">Progress</label>
-                    <input type="number" class="form-control" id="progress" name="progress"
-                           aria-describedby="progressHelp">
-                    <small id="progressHelp" class="form-text text-muted">How far have you gotten so far?</small>
+                    <input aria-describedby="progressHelp" class="form-control" id="progress" name="progress"
+                           type="number">
+                    <small class="form-text text-muted" id="progressHelp">How far have you gotten so far?</small>
                 </div>
                 <div class="form-group">
                     <label for="target">Target</label>
-                    <input type="number" class="form-control" id="target" name="target" aria-describedby="targetHelp">
-                    <small id="targetHelp" class="form-text text-muted">At what point is this goal accomplished?</small>
+                    <input aria-describedby="targetHelp" class="form-control" id="target" name="target" type="number">
+                    <small class="form-text text-muted" id="targetHelp">At what point is this goal accomplished?</small>
                 </div>
                 <div class="form-group">
                     <label for="dueDate">Due Date</label>
                     <!-- placeholder workaround for Safari :( shouldn't affect other browsers-->
-                    <input type="date" placeholder="yyyy-mm-dd" class="form-control" id="dueDate" name="due_date"
-                           aria-describedby="dueDateHelp">
-                    <small id="dueDateHelp" class="form-text text-muted">Does this goal have a due date?</small>
+                    <input aria-describedby="dueDateHelp" class="form-control" id="dueDate" name="due_date"
+                           placeholder="yyyy-mm-dd"
+                           type="date">
+                    <small class="form-text text-muted" id="dueDateHelp">Does this goal have a due date?</small>
+                </div>
+                <div class="form-group">
+                    <label for="recurrence">Recurrence</label>
+                    <p>
+                        <select id="recurrence">
+                            <option value="None">None</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Yearly">Yearly</option>
+                        </select>
+                    </p>
+                    <small class="form-text text-muted" id="recurrenceHelp">Is this a recurring task?</small>
                 </div>
                 <div class="form-group">
                     <label for="tags">Tags</label>
                     <select class="selectpicker form-control" multiple name="tags">
-                        <option th:each="tag: ${tags}" th:value="${tag.id}" th:text="${tag.tag}"></option>
+                        <option th:each="tag: ${tags}" th:text="${tag.tag}" th:value="${tag.id}"></option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary float-right">Submit</button>
+                <button class="btn btn-primary float-right" type="submit">Submit</button>
             </form>
         </div>
     </div>
