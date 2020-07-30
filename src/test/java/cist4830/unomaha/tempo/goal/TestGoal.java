@@ -1,12 +1,17 @@
 package cist4830.unomaha.tempo.goal;
 
+import cist4830.unomaha.tempo.RecurrenceCalculator;
 import cist4830.unomaha.tempo.model.Goal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 public class TestGoal {
 
-    private final Goal goal = new Goal(10000L, 20000L, "Test", "TestDescription", 30000L, 40000L, "07/09/2020", 1, "WEEK", 50000L, "07/09/2020", "07/09/2020");
+    private final Goal goal = new Goal(10000L, 20000L, "Test", "TestDescription",
+            30000L, 40000L, "2020-07-09", 1, "WEEK",
+            50000L, "2020-07-09", "2020-07-09");
 
     @Test
     public void testGetID() {
@@ -40,7 +45,7 @@ public class TestGoal {
 
     @Test
     public void testGetDueDate() {
-        Assertions.assertEquals("07/09/2020", goal.getDueDate());
+        Assertions.assertEquals("2020-07-09", goal.getDueDate());
     }
 
     @Test
@@ -50,12 +55,28 @@ public class TestGoal {
 
     @Test
     public void testGetCreatedAt() {
-        Assertions.assertEquals("07/09/2020", goal.getCreatedAt());
+        Assertions.assertEquals("2020-07-09", goal.getCreatedAt());
     }
 
     @Test
     public void testGetModifiedAt() {
-        Assertions.assertEquals("07/09/2020", goal.getModifiedAt());
+        Assertions.assertEquals("2020-07-09", goal.getModifiedAt());
+    }
+
+    @Test
+    public void testGetRecurrenceNum() {
+        Assertions.assertEquals(1, goal.getRecurrence_num());
+    }
+
+    @Test
+    public void testGetRecurrenceFrequency() {
+        Assertions.assertEquals("WEEK", goal.getRecurrence_freq());
+    }
+
+    @Test
+    public void testRecurrenceCalculator() {
+        LocalDate creationDate = LocalDate.parse(goal.getCreatedAt()); // 2020-07-09
+        Assertions.assertEquals("2020-07-16", RecurrenceCalculator.getRecurrenceDate(goal.getCreatedAt(), goal.getRecurrence_num(), goal.getRecurrence_freq()));
     }
 
 }
