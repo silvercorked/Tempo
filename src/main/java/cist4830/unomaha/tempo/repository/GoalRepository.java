@@ -27,7 +27,7 @@ public class GoalRepository {
 
     //create
     public Goal create(Goal goal) {
-        String sql = "INSERT INTO goal(goal, description, progress, target, due_date, user_id, created_at, modified_at) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO goal(goal, description, progress, target, due_date, user_id, recurrence_date, created_at, modified_at) VALUES (?,?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         this.jdbcTemplate.update(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -37,8 +37,9 @@ public class GoalRepository {
             statement.setLong(4, goal.getTarget());
             statement.setString(5, goal.getDueDate());
             statement.setLong(6, goal.getUserId());
-            statement.setString(7, goal.getCreatedAt());
-            statement.setString(8, goal.getModifiedAt());
+            statement.setString(7, goal.getRecurrence_date());
+            statement.setString(8, goal.getCreatedAt());
+            statement.setString(9, goal.getModifiedAt());
             return statement;
         }, keyHolder);
 

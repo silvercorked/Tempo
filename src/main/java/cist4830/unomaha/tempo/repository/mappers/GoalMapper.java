@@ -22,6 +22,6 @@ public class GoalMapper implements RowMapper<Goal> {
     public Goal mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Goal(rs.getLong("id"), rs.getLong("parent_id"), rs.getString("goal")
                 , rs.getString("description"), rs.getLong("progress"), rs.getLong("target"), rs.getString("due_date")
-                , rs.getLong("user_id"), rs.getString("created_at"), rs.getString("modified_at"));
+                , rs.getString("recurrence_date"),  rs.getLong("user_id"), rs.getString("created_at"), rs.getString("modified_at"));
     }
 }
