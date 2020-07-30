@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/goals")
 public class GoalController {
     @Autowired
     private UserRepository userRepository;
@@ -59,7 +59,7 @@ public class GoalController {
         Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, due_date.toString(), (long) 1, now, now);
         goalRepository.create(goal);
         tags.stream().forEach(tag -> goalRepository.associateTag(goal, tag));
-        return "redirect:/";
+        return "redirect:/goals";
     }
 
     @GetMapping(value = "{id}/edit")
@@ -110,7 +110,7 @@ public class GoalController {
                     if (tags.stream().allMatch(item -> item.getId() != aItem.getId()))
                         goalRepository.disassociateTag(goal, aItem);
                 });
-        return "redirect:/" + id;
+        return "redirect:/goals/" + id;
     }
 
     @GetMapping(value = "{id}")
@@ -131,6 +131,6 @@ public class GoalController {
         });
         // ^^ check if it exists first
         goalRepository.delete(id);
-        return "redirect:/";
+        return "redirect:/goals/";
     }
 }

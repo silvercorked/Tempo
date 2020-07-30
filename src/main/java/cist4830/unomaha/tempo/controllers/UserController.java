@@ -3,19 +3,23 @@ package cist4830.unomaha.tempo.controllers;
 import cist4830.unomaha.tempo.model.User;
 import cist4830.unomaha.tempo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.sql.Date;
 
-@RestController
+@Controller
 @RequestMapping(value = "/users")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public String index() {
@@ -29,6 +33,43 @@ public class UserController {
             User userTemp = new User((long) 2, usernames.get(1), names.get(1), passwords.get(1), dates.get(1), dates.get(1));
             return userRepository.create(userTemp);
         });
-        return "hit home controller's index page: " + user.toString();
+        return "users/index";
     }
+
+    @GetMapping(value = "register")
+    public String create() {
+        return "users/create";
+    }
+
+    @GetMapping(value = "{id}")
+    public String show(@PathVariable Long id) {
+        return "users/show";
+    }
+
+    @GetMapping(value = "{id}/edit")
+    public String edit(@PathVariable Long id) {
+        return "users/edit";
+    }
+
+    @PostMapping(value="register")
+    public String store(@RequestParam(name = "username") String usernamestr
+        , @RequestParam(name = "name") String namestr
+        , @RequestParam(name = "password") String passwordstr) {
+        String now = new Date(new java.util.Date().getTime()).toString();
+        userRepository.create(new User((long) 0, namestr, usernamestr, passwordEncoder.encode(passwordstr), now, now));
+        return "redirect:/";
+    }
+
+    @PostMapping(value = "{id}")
+    public String update(@PathVariable Long id) {
+        return "redirect:/users" + id;
+    }
+
+    @PostMapping(value = "{id}/delete")
+    public String delete(@PathVariable Long id) {
+        return "redirect:/users";
+    }
+
+
+
 }
