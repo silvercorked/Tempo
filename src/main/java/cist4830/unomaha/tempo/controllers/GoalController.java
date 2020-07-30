@@ -15,11 +15,15 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/")
 public class GoalController {
+
+    private final static Logger LOG = Logger.getLogger(GoalController.class.getSimpleName());
+
     @Autowired
     private UserRepository userRepository;
 
@@ -31,7 +35,7 @@ public class GoalController {
 
     @GetMapping
     public String index(Model model) {
-        System.out.println("attempted to hit goals page");
+        LOG.info("Tempo index page requested");
         model.addAttribute("goals", goalRepository.findAll());
         return "goals/index";
     }
