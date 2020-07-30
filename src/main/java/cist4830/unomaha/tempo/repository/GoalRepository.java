@@ -42,8 +42,10 @@ public class GoalRepository {
             return statement;
         }, keyHolder);
 
-        Long newGoalId = keyHolder.getKey().longValue();
-        goal.setId(newGoalId);
+        if (keyHolder.getKey() != null) {
+            Long newGoalId = keyHolder.getKey().longValue();
+            goal.setId(newGoalId);
+        }
         return goal;
     }
 
@@ -56,13 +58,13 @@ public class GoalRepository {
     //retrieve
     public Optional<Goal> findById(Long id) {
         String sql = "SELECT * FROM goal WHERE id = ?";
-        return Optional.of(jdbcTemplate.queryForObject(sql, new Object[]{id}, new GoalMapper()));
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new Object[]{id}, new GoalMapper()));
     }
 
     public Optional<Goal> findGoalById(Long id) {
         String sql = "SELECT * FROM goal WHERE id = ?";
         return this.jdbcTemplate.query(sql,
-                rs -> rs.next() ? Optional.of(new GoalMapper().mapRow(rs, 1)) : Optional.empty()
+                rs -> rs.next() ? Optional.ofNullable(new GoalMapper().mapRow(rs, 1)) : Optional.empty()
                 , id
         );
     }
@@ -90,7 +92,7 @@ public class GoalRepository {
         String sql;
         if (tags.stream().anyMatch((Tag t) -> tag.getId() == t.getId())) {
             sql = "SELECT * FROM goal_tag_assoc WHERE goal_id = ? AND tag_id = ?";
-            return Optional.of(this.jdbcTemplate.queryForObject(sql
+            return Optional.ofNullable(this.jdbcTemplate.queryForObject(sql
                     , new Object[]{goal.getId(), tag.getId()}, new GoalTagAssocMapper()))
                     .orElseThrow(() -> {
                         throw new ResourceNotFoundException();
@@ -106,8 +108,10 @@ public class GoalRepository {
                 statement.setString(3, new Date(new java.util.Date().getTime()).toString());
                 return statement;
             }, keyHolder);
-            Long newAssocId = keyHolder.getKey().longValue();
-            return newAssocId;
+            if (keyHolder.getKey() != null) {
+                return keyHolder.getKey().longValue();
+            }
+            return null;
         }
     }
 

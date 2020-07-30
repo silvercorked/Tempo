@@ -34,8 +34,10 @@ public class UserRepository {
             return statement;
         }, keyHolder);
 
-        Long newUserId = keyHolder.getKey().longValue();
-        user.setId(newUserId);
+        if (keyHolder.getKey() != null) {
+            Long newUserId = keyHolder.getKey().longValue();
+            user.setId(newUserId);
+        }
         return user;
     }
 
@@ -48,13 +50,13 @@ public class UserRepository {
     //retrieve
     public Optional<User> findById(Long id) {
         String sql = "SELECT * FROM user WHERE id = ?";
-        return Optional.of(jdbcTemplate.queryForObject(sql, new Object[]{id}, new UserMapper()));
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new Object[]{id}, new UserMapper()));
     }
 
     public Optional<User> findUserById(Long id) {
         String sql = "SELECT * FROM user WHERE id = ?";
         return this.jdbcTemplate.query(sql,
-                rs -> rs.next() ? Optional.of(new UserMapper().mapRow(rs, 1)) : Optional.empty()
+                rs -> rs.next() ? Optional.ofNullable(new UserMapper().mapRow(rs, 1)) : Optional.empty()
                 , id
         );
     }
