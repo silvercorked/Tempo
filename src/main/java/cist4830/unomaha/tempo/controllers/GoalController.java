@@ -48,10 +48,12 @@ public class GoalController {
 
     @PostMapping()
     public String store(@RequestParam(name = "goal") String goalstr
-            , @RequestParam(name = "description") String description
-            , @RequestParam(name = "progress") Long progress
-            , @RequestParam(name = "target") Long target
-            , @RequestParam(name = "due_date") Date due_date
+            , @RequestParam(name = "description", required = false) String description
+            , @RequestParam(name = "progress", required = false) Long progress
+            , @RequestParam(name = "target", required = false) Long target
+            , @RequestParam(name = "due_date", required = false) Date due_date
+            , @RequestParam(name = "recurrence_num", required = false) Integer recurrence_num
+            , @RequestParam(name = "recurrence_freq", required = false) String recurrence_freq
             , @RequestParam(name = "tags") Optional<List<Long>> tag_ids) {
         java.util.Date utilDate = new java.util.Date();
         String now = new Date(utilDate.getTime()).toString();
@@ -60,7 +62,14 @@ public class GoalController {
                     throw new ResourceNotFoundException();
                 }))
                 .collect(Collectors.toList()); // do this to make sure these tags exists first before creating goal.
-        Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, due_date.toString(), (long) 1, now, now);
+        String stringdate = "";
+        if (due_date != null) {
+            stringdate= due_date.toString();
+        }
+        Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, stringdate
+                , recurrence_num, recurrence_freq, (long) 1, now, now);
+        LOG.info("Creating new goal with name: " + goalstr + " description: " + description
+        + " recurring every " + recurrence_num + " " + recurrence_freq);
         goalRepository.create(goal);
         tags.stream().forEach(tag -> goalRepository.associateTag(goal, tag));
         return "redirect:/goals";

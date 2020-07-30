@@ -58,6 +58,11 @@
             </div>
             <div class="row">
                 <div class="col-12">
+                    <p th:text="'Recurrence interval: ' + ${goal.recurrence_num} + ' ' + ${goal.recurrence_freq}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <a th:each="tag: ${tags}" th:href="'/tags/' + ${tag.id}">
                         <p th:text="${tag.tag}"></p>
                     </a>
