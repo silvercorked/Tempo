@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class TestGoal {
 
-    private final Goal goal = new Goal(10000L, 20000L, "Test", "TestDescription", 30000L, 40000L, "07/09/2020", 50000L, "07/09/2020", "07/09/2020");
+    private final Goal goal = new Goal(10000L, 20000L, "Test", "TestDescription", 30000L, 40000L, "07/09/2020", 1, "WEEK", 50000L, "07/09/2020", "07/09/2020");
 
     @Test
     public void testGetID() {

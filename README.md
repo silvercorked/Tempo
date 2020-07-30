@@ -20,9 +20,10 @@ This application is the repository for the Tempo Goal Tracking Web application.
  - Current functionality includes goal and tag creation, read, update, and delete (CRUD) functionality.
 
 ## Release Notes:
- - the route at "/" shows a demo of a possible implementation.
- - the route at "/goals" shows all goals currently in the system.
- - the route at "/goals/create" allows a user to create and submit a goal.
+ - the route at "/" is the main landing page of the Tempo application.
+ - the route "/users" creates a demo user and *must be run first* before using the application!
+ - the route "/create" allows users to create a new goal.
+ - the route "/tags" allows users to manage tags.
  - the database is loaded in memory and is connected to our system.
  - models are done.
  - repositories are done.

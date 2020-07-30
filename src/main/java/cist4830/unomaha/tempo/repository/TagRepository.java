@@ -36,8 +36,10 @@ public class TagRepository {
             return statement;
         }, keyHolder);
 
-        Long newTagId = keyHolder.getKey().longValue();
-        tag.setId(newTagId);
+        if (keyHolder.getKey() != null) {
+            Long newTagId = keyHolder.getKey().longValue();
+            tag.setId(newTagId);
+        }
         return tag;
     }
 
@@ -50,13 +52,13 @@ public class TagRepository {
     //retrieve
     public Optional<Tag> findById(Long id) {
         String sql = "SELECT * FROM tag WHERE id = ?";
-        return Optional.of(jdbcTemplate.queryForObject(sql, new Object[]{id}, new TagMapper()));
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new Object[]{id}, new TagMapper()));
     }
 
     public Optional<Tag> findTagById(Long id) {
         String sql = "SELECT * FROM tag WHERE id = ?";
         return this.jdbcTemplate.query(sql,
-                rs -> rs.next() ? Optional.of(new TagMapper().mapRow(rs, 1)) : Optional.empty()
+                rs -> rs.next() ? Optional.ofNullable(new TagMapper().mapRow(rs, 1)) : Optional.empty()
                 , id
         );
     }
