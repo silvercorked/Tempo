@@ -9,6 +9,7 @@ public class Goal {
     private Long progress;
     private Long target;
     private String due_date;
+    private String recurrence_date;
     private Long userId;
     private String created_at;
     private String modified_at;
@@ -27,11 +28,12 @@ public class Goal {
      * @param progress
      * @param target
      * @param due_date
+     * @param recurrence_date
      * @param userId
      * @param created_at
      * @param modified_at
      */
-    public Goal(Long id, Long parentId, String goal, String description, Long progress, Long target, String due_date, Long userId, String created_at, String modified_at) {
+    public Goal(Long id, Long parentId, String goal, String description, Long progress, Long target, String due_date, String recurrence_date, Long userId, String created_at, String modified_at) {
         this.setId(id);
         this.setParentId(parentId);
         this.setGoal(goal);
@@ -39,6 +41,7 @@ public class Goal {
         this.setProgress(progress);
         this.setTarget(target);
         this.setDueDate(due_date);
+        this.setRecurrence_date(recurrence_date);
         this.setUserId(userId);
         this.setCreatedAt(created_at);
         this.setModifiedAt(modified_at);
@@ -66,6 +69,14 @@ public class Goal {
 
     public void setGoal(String goal) {
         this.goal = goal;
+    }
+
+    public String getRecurrence_date() {
+        return this.recurrence_date;
+    }
+
+    public void setRecurrence_date(String date) {
+        this.recurrence_date = date;
     }
 
     public String getDescription() {

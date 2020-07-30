@@ -9,6 +9,7 @@ CREATE TABLE goal (
   user_id bigint(20) NOT NULL,
   created_at DATETIME NOT NULL,
   modified_at DATETIME NOT NULL,
+  recurrence_date DATETIME NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES user(id)
 );

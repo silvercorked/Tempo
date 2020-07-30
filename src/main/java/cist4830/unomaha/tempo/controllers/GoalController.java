@@ -48,6 +48,7 @@ public class GoalController {
             , @RequestParam(name = "progress") Long progress
             , @RequestParam(name = "target") Long target
             , @RequestParam(name = "due_date") Date due_date
+            , @RequestParam(name = "recurrence_date") Date recurrence_date
             , @RequestParam(name = "tags") Optional<List<Long>> tag_ids) {
         java.util.Date utilDate = new java.util.Date();
         String now = new Date(utilDate.getTime()).toString();
@@ -56,7 +57,7 @@ public class GoalController {
                     throw new ResourceNotFoundException();
                 }))
                 .collect(Collectors.toList()); // do this to make sure these tags exists first before creating goal.
-        Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, due_date.toString(), (long) 1, now, now);
+        Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, due_date.toString(), recurrence_date.toString(), (long) 1, now, now);
         goalRepository.create(goal);
         tags.stream().forEach(tag -> goalRepository.associateTag(goal, tag));
         return "redirect:/";
