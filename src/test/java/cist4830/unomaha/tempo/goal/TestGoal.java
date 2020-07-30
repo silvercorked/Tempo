@@ -1,7 +1,7 @@
 package cist4830.unomaha.tempo.goal;
 
-import cist4830.unomaha.tempo.recurrence.RecurrenceCalculator;
 import cist4830.unomaha.tempo.model.Goal;
+import cist4830.unomaha.tempo.recurrence.RecurrenceCalculator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -101,6 +101,7 @@ public class TestGoal {
         Assertions.assertEquals("2020-08-01",
                 RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrence_num(), tempGoal.getRecurrence_freq()));
     }
+    
     @Test
     public void testRecurrenceCalculatorOneYear() {
         Goal tempGoal = this.goal;
