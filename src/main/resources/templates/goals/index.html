@@ -28,16 +28,19 @@
                 <div class="col-4">
                     <a class="btn btn-primary float-right" href="/create">Create a Goal</a>
                 </div>
-                <hr width="60%" align="left">
+                <hr width="100%" align="left">
             </div>
             <div class="row">
-                <div class="col-4">
+                <div class="col-3">
                     <p>Goal</p>
                 </div>
-                <div class="col-6">
+                <div class="col-3">
                     <p>Description</p>
                 </div>
-                <hr width="60%" align="left">
+                <div class="col-3">
+                    <p>Due Date</p>
+                </div>
+                <hr width="100%" align="left">
             </div>
             <!--                <table class="table table-striped">-->
             <!--                    <thead>-->
@@ -55,16 +58,19 @@
             <!--                </table>-->
 
             <div class="row" th:each="goal: ${goals}">
-                <div class="col-4">
+                <div class="col-3">
                     <p th:text="${goal.goal}"></p>
                 </div>
-                <div class="col-6">
+                <div class="col-3">
                     <p th:text="${goal.description}"></p>
+                </div>
+                <div class="col-3">
+                    <p th:text="${goal.dueDate}"></p>
                 </div>
                 <div class="col-2">
                     <a class="btn btn-primary float-right" th:href="'/' + ${goal.id}">View</a>
                 </div>
-                <hr width="60%" align="left">
+                <hr width="100%" align="left">
             </div>
         </div>
     </div>
