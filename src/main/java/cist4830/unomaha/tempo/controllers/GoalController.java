@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ public class GoalController {
         return "goals/index";
     }
 
-    @GetMapping(value = "/create")
+    @GetMapping(value = "create")
     public String create(Model model) {
         model.addAttribute("tags", tagRepository.findAll());
         return "goals/create";

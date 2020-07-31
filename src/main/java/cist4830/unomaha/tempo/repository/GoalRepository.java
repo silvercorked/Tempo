@@ -76,6 +76,7 @@ public class GoalRepository {
         String sql = "UPDATE goal " +
                 "SET goal = ?, description = ?, progress = ?, target = ?, due_date = ?, user_id = ?, created_at = ?, modified_at = ? " +
                 "WHERE id = ?";
+        // TODO this needs the recurrence information
         Object[] params = new Object[]{goal.getGoal(), goal.getDescription(), goal.getProgress(), goal.getTarget(),
                 goal.getDueDate(), goal.getUserId(), goal.getCreatedAt(), goal.getModifiedAt(), goal.getId()
         };
