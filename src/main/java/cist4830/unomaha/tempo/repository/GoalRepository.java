@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @Component
 @Repository
+@CrossOrigin(origins = "http://localhost:4200")
 public class GoalRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
