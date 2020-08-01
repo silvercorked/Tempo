@@ -53,6 +53,14 @@ public class UserRepository {
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new Object[]{id}, new UserMapper()));
     }
 
+    public User findUserByUsername(String username) {
+        String sql = "SELECT * FROM user WHERE username = ?";
+        return this.jdbcTemplate.query(sql,
+            rs -> rs.next() ? new UserMapper().mapRow(rs, 1) : null
+            , username
+        );
+    }
+
     public Optional<User> findUserById(Long id) {
         String sql = "SELECT * FROM user WHERE id = ?";
         return this.jdbcTemplate.query(sql,

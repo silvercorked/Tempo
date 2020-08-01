@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import cist4830.unomaha.tempo.services.CustomUserDetailsService;
 
 import javax.sql.DataSource;
 
@@ -50,5 +52,10 @@ public class ApplicationConfig {
     @Qualifier("getDataSource")
     public PasswordEncoder getEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService();
     }
 }
