@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TestGoal {
 
     private final Goal goal = new Goal(10000L, 20000L, "Test", "TestDescription",
-            30000L, 40000L, "2020-07-09", 1, "DAY",
+            30000L, 40000L, "2020-07-09", 1, "DAY", "2020-07-10",
             50000L, "2020-07-09", "2020-07-09");
 
     @Test
@@ -67,57 +67,57 @@ public class TestGoal {
 
     @Test
     public void testGetRecurrenceNum() {
-        Assertions.assertEquals(1, goal.getRecurrence_num());
+        Assertions.assertEquals(1, goal.getRecurrenceNum());
     }
 
     @Test
     public void testGetRecurrenceFrequency() {
-        Assertions.assertEquals("DAY", goal.getRecurrence_freq());
+        Assertions.assertEquals("DAY", goal.getRecurrenceFreq());
     }
 
     @Test
     public void testRecurrenceCalculatorOneDay() {
         LocalDate creationDate = LocalDate.parse(goal.getCreatedAt()); // 2020-07-09
         Assertions.assertEquals("2020-07-10",
-                RecurrenceCalculator.getRecurrenceDate(goal.getCreatedAt(), goal.getRecurrence_num(), goal.getRecurrence_freq()));
+                RecurrenceCalculator.getRecurrenceDate(goal.getCreatedAt(), goal.getRecurrenceNum(), goal.getRecurrenceFreq()));
     }
 
     @Test
     public void testRecurrenceCalculatorOneWeek() {
         Goal tempGoal = this.goal;
         tempGoal.setCreatedAt("2020-07-01");
-        tempGoal.setRecurrence_num(1);
-        tempGoal.setRecurrence_freq("WEEK");
+        tempGoal.setRecurrenceNum(1);
+        tempGoal.setRecurrenceFreq("WEEK");
         Assertions.assertEquals("2020-07-08",
-                RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrence_num(), tempGoal.getRecurrence_freq()));
+                RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrenceNum(), tempGoal.getRecurrenceFreq()));
     }
 
     @Test
     public void testRecurrenceCalculatorOneMonth() {
         Goal tempGoal = this.goal;
         tempGoal.setCreatedAt("2020-07-01");
-        tempGoal.setRecurrence_num(1);
-        tempGoal.setRecurrence_freq("MONTH");
+        tempGoal.setRecurrenceNum(1);
+        tempGoal.setRecurrenceFreq("MONTH");
         Assertions.assertEquals("2020-08-01",
-                RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrence_num(), tempGoal.getRecurrence_freq()));
+                RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrenceNum(), tempGoal.getRecurrenceFreq()));
     }
     
     @Test
     public void testRecurrenceCalculatorOneYear() {
         Goal tempGoal = this.goal;
         tempGoal.setCreatedAt("2020-07-01");
-        tempGoal.setRecurrence_num(1);
-        tempGoal.setRecurrence_freq("YEAR");
+        tempGoal.setRecurrenceNum(1);
+        tempGoal.setRecurrenceFreq("YEAR");
         Assertions.assertEquals("2021-07-01",
-                RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrence_num(), tempGoal.getRecurrence_freq()));
+                RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrenceNum(), tempGoal.getRecurrenceFreq()));
     }
 
     @Test
     public void testInvalidRecurrenceInterval() {
         Goal tempGoal = this.goal;
-        tempGoal.setRecurrence_freq("BLAH");
+        tempGoal.setRecurrenceFreq("BLAH");
         Exception exception = assertThrows(UnsupportedOperationException.class, () -> {
-            RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrence_num(), tempGoal.getRecurrence_freq());
+            RecurrenceCalculator.getRecurrenceDate(tempGoal.getCreatedAt(), tempGoal.getRecurrenceNum(), tempGoal.getRecurrenceFreq());
         });
         Assertions.assertEquals("Unknown frequency!", exception.getMessage());
     }

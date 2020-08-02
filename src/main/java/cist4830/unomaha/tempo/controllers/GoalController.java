@@ -9,6 +9,7 @@ import cist4830.unomaha.tempo.repository.TagRepository;
 import cist4830.unomaha.tempo.repository.UserRepository;
 import cist4830.unomaha.tempo.services.CustomUserDetailsService;
 import cist4830.unomaha.tempo.controllers.utility.GetLoggedInUser;
+import cist4830.unomaha.tempo.recurrence.RecurrenceCalculator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,9 +59,9 @@ public class GoalController {
 
     @PostMapping()
     public String store(@RequestParam(name = "goal") String goalstr
-            , @RequestParam(name = "description", required = false) String description
-            , @RequestParam(name = "progress", required = false) Long progress
-            , @RequestParam(name = "target", required = false) Long target
+            , @RequestParam(name = "description", required = true) String description
+            , @RequestParam(name = "progress", required = true) Long progress
+            , @RequestParam(name = "target", required = true) Long target
             , @RequestParam(name = "due_date", required = false) Date due_date
             , @RequestParam(name = "recurrence_num", required = false) Integer recurrence_num
             , @RequestParam(name = "recurrence_freq", required = false) String recurrence_freq
@@ -73,12 +74,15 @@ public class GoalController {
                     throw new ResourceNotFoundException();
                 }))
                 .collect(Collectors.toList()); // do this to make sure these tags exists first before creating goal.
-        String stringdate = "";
-        if (due_date != null) {
-            stringdate= due_date.toString();
+        String recur_date_str = null;
+        if (recurrence_num == null || recurrence_freq == null) {
+            recurrence_num = 0;
+            recurrence_freq = "NEVER";
         }
-        Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, stringdate
-                , recurrence_num, recurrence_freq, user.getId(), now, now);
+        else
+            recur_date_str = RecurrenceCalculator.getRecurrenceDate(now.toString(), recurrence_num, recurrence_freq);
+        Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, due_date != null ? due_date.toString() : null
+                , recurrence_num, recurrence_freq, recur_date_str, user.getId(), now, now);
         LOG.info("Creating new goal with name: " + goalstr + " description: " + description
         + " recurring every " + recurrence_num + " " + recurrence_freq);
         goalRepository.create(goal);
@@ -102,11 +106,13 @@ public class GoalController {
 
     @PostMapping(value = "{id}")
     public String update(@PathVariable Long id, @RequestParam(name = "goal") String goalstr
-            , @RequestParam(name = "description") String description
-            , @RequestParam(name = "progress") Long progress
-            , @RequestParam(name = "target") Long target
-            , @RequestParam(name = "due_date") Date due_date
-            , @RequestParam(name = "tags") Optional<List<Long>> tag_ids) {
+        , @RequestParam(name = "description", required = true) String description
+        , @RequestParam(name = "progress", required = true) Long progress
+        , @RequestParam(name = "target", required = true) Long target
+        , @RequestParam(name = "due_date", required = false) Date due_date
+        , @RequestParam(name = "recurrence_num", required = false) Integer recurrence_num
+        , @RequestParam(name = "recurrence_freq", required = false) String recurrence_freq
+        , @RequestParam(name = "tags") Optional<List<Long>> tag_ids) {
         java.util.Date utilDate = new java.util.Date();
         String now = new Date(utilDate.getTime()).toString();
         List<Tag> tags = ((List<Long>) tag_ids.orElse(new ArrayList())).stream()
@@ -117,16 +123,24 @@ public class GoalController {
         Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> {
             throw new ResourceNotFoundException();
         });
+        String recur_date_str = null;
+        if (recurrence_num == null || recurrence_freq == null) {
+            recurrence_num = 0;
+            recurrence_freq = "NEVER";
+        }
+        else
+            recur_date_str = RecurrenceCalculator.getRecurrenceDate(now.toString(), recurrence_num, recurrence_freq);
         goal.setGoal(goalstr);
         goal.setDescription(description);
         goal.setProgress(progress);
         goal.setTarget(target);
-        goal.setDueDate(due_date.toString());
+        goal.setDueDate(due_date != null ? due_date.toString() : null);
+        goal.setRecurrenceNum(recurrence_num);
+        goal.setRecurrenceFreq(recurrence_freq);
+        goal.setRecurrenceDate(recur_date_str);
         goal.setModifiedAt(now);
         goalRepository.update(goal);
         List<Tag> assocTags = goalRepository.getTags(goal);
-        System.out.println(tags.toString());
-        System.out.println(assocTags.toString());
         tags.stream() // take the new set of tags and if they aren't in the currently selected, we associate them
                 .forEach(item -> {
                     if (assocTags.stream().allMatch(aItem -> item.getId() != aItem.getId()))

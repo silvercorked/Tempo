@@ -11,6 +11,7 @@ public class Goal {
     private String due_date;
     private Integer recurrence_num;
     private String recurrence_freq;
+    private String recurrence_date;
     private Long userId;
     private String created_at;
     private String modified_at;
@@ -31,12 +32,14 @@ public class Goal {
      * @param due_date
      * @param recurrence_num
      * @param recurrence_freq
+     * @param recurrence_date
      * @param userId
      * @param created_at
      * @param modified_at
      */
-    public Goal(Long id, Long parentId, String goal, String description, Long progress, Long target, String due_date,
-                Integer recurrence_num, String recurrence_freq, Long userId, String created_at, String modified_at) {
+    public Goal(Long id, Long parentId, String goal, String description, Long progress
+        , Long target, String due_date, Integer recurrence_num, String recurrence_freq
+        , String recurrence_date, Long userId, String created_at, String modified_at) {
         this.setId(id);
         this.setParentId(parentId);
         this.setGoal(goal);
@@ -44,8 +47,9 @@ public class Goal {
         this.setProgress(progress);
         this.setTarget(target);
         this.setDueDate(due_date);
-        this.setRecurrence_num(recurrence_num);
-        this.setRecurrence_freq(recurrence_freq);
+        this.setRecurrenceNum(recurrence_num);
+        this.setRecurrenceFreq(recurrence_freq);
+        this.setRecurrenceDate(recurrence_date);
         this.setUserId(userId);
         this.setCreatedAt(created_at);
         this.setModifiedAt(modified_at);
@@ -75,20 +79,28 @@ public class Goal {
         this.goal = goal;
     }
 
-    public Integer getRecurrence_num() {
+    public Integer getRecurrenceNum() {
         return this.recurrence_num;
     }
 
-    public void setRecurrence_num(int num) {
+    public void setRecurrenceNum(int num) {
         this.recurrence_num = num;
     }
 
-    public void setRecurrence_freq(String freq) {
+    public void setRecurrenceFreq(String freq) {
         this.recurrence_freq = freq;
     }
 
-    public String getRecurrence_freq() {
+    public String getRecurrenceFreq() {
         return this.recurrence_freq;
+    }
+
+    public void setRecurrenceDate(String recurrence_date) {
+        this.recurrence_date = recurrence_date;
+    }
+
+    public String getRecurrenceDate() {
+        return this.recurrence_date;
     }
 
     public String getDescription() {

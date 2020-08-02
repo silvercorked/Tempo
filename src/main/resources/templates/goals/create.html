@@ -27,22 +27,22 @@
         <div class="col-12">
             <form method="POST" action="/goals">
                 <div class="form-group">
-                    <label for="goal">Goal</label>
+                    <label for="goal">Goal*</label>
                     <input aria-describedby="goalHelp" class="form-control" id="goal" name="goal" type="text">
                     <small class="form-text text-muted" id="goalHelp">What do you want to accomplish?</small>
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
+                    <label for="description">Description*</label>
                     <textarea class="form-control" id="description" name="description" type="text"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="progress">Progress</label>
+                    <label for="progress">Progress*</label>
                     <input aria-describedby="progressHelp" class="form-control" id="progress" name="progress"
                            type="number">
                     <small class="form-text text-muted" id="progressHelp">How far have you gotten so far?</small>
                 </div>
                 <div class="form-group">
-                    <label for="target">Target</label>
+                    <label for="target">Target*</label>
                     <input aria-describedby="targetHelp" class="form-control" id="target" name="target" type="number">
                     <small class="form-text text-muted" id="targetHelp">At what point is this goal accomplished?</small>
                 </div>
@@ -56,16 +56,20 @@
                 </div>
                 <div class="form-group">
                     <label for="recurrence_num">Recurrence</label>
-                    <p>
-                        <input id="recurrence_num" name="recurrence_num" class="form-text" type="number" min="0" step="1"/>
-                        <select id="recurrence_freq" name="recurrence_freq">
-                            <option value="DAYS">Days</option>
-                            <option value="WEEKS">Weeks</option>
-                            <option value="MONTHS">Months</option>
-                            <option value="YEARS">Years</option>
-                        </select>
-                    </p>
-                    <small class="form-text text-muted" id="recurrenceHelp">Is this a recurring task?</small>
+                    <div class="row">
+                        <div class="col-6">
+                            <input id="recurrence_num" name="recurrence_num" class="form-control" type="number" min="0" step="1"/>
+                        </div>
+                        <div class="col-6">
+                            <select id="recurrence_freq" class="form-control" name="recurrence_freq">
+                                <option value="DAY">Days</option>
+                                <option value="WEEK">Weeks</option>
+                                <option value="MONTH">Months</option>
+                                <option value="YEAR">Years</option>
+                            </select>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted" id="recurrenceHelp">If this is a recurring task, enter the time unit and a number. These will be used to reset the goal</small>
                 </div>
                 <div class="form-group">
                     <label for="tags">Tags</label>
@@ -73,6 +77,7 @@
                         <option th:each="tag: ${tags}" th:text="${tag.tag}" th:value="${tag.id}"></option>
                     </select>
                 </div>
+                <p>A * denotes a required field</p>
                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                 <button type="button" class="btn btn-primary float-right mr-2" onclick="window.location.href='./goals'" >Back</button>
                 <button type="reset" class="btn btn-primary float-left mr-2">Clear</button>

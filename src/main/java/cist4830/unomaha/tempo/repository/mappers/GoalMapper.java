@@ -29,6 +29,7 @@ public class GoalMapper implements RowMapper<Goal> {
                 , rs.getString("due_date")
                 , rs.getInt("recurrence_num")
                 , rs.getString("recurrence_freq")
+                , rs.getString("recurrence_date")
                 , rs.getLong("user_id")
                 , rs.getString("created_at")
                 , rs.getString("modified_at"));

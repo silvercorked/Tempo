@@ -58,6 +58,23 @@
                     <small id="dueDateHelp" class="form-text text-muted">Does this goal have a due date?</small>
                 </div>
                 <div class="form-group">
+                    <label for="recurrence_num">Recurrence</label>
+                    <div class="row">
+                        <div class="col-6">
+                            <input id="recurrence_num" th:value="${goal.recurrenceNum}" name="recurrence_num" class="form-control" type="number" min="0" step="1"/>
+                        </div>
+                        <div class="col-6">
+                            <select id="recurrence_freq" class="form-control" th:field="${goal.recurrenceFreq}" name="recurrence_freq">
+                                <option value="DAY">Days</option>
+                                <option value="WEEK">Weeks</option>
+                                <option value="MONTH">Months</option>
+                                <option value="YEAR">Years</option>
+                            </select>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted" id="recurrenceHelp">If this is a recurring task, enter the time unit and a number. These will be used to reset the goal</small>
+                </div>
+                <div class="form-group">
                     <label for="tags">Tags</label>
                     <select id="multiselect" class="selectpicker form-control" multiple name="tags">
                         <option th:each="tag: ${tags}" th:value="${tag.id}" th:text="${tag.tag}"></option>

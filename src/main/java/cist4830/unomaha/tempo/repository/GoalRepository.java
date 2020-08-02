@@ -27,7 +27,7 @@ public class GoalRepository {
 
     //create
     public Goal create(Goal goal) {
-        String sql = "INSERT INTO goal(goal, description, progress, target, due_date, user_id, recurrence_num, recurrence_freq, created_at, modified_at) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO goal(goal, description, progress, target, due_date, user_id, recurrence_num, recurrence_freq, recurrence_date, created_at, modified_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         this.jdbcTemplate.update(connection -> {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -37,10 +37,11 @@ public class GoalRepository {
             statement.setLong(4, goal.getTarget());
             statement.setString(5, goal.getDueDate());
             statement.setLong(6, goal.getUserId());
-            statement.setInt(7, goal.getRecurrence_num());
-            statement.setString(8, goal.getRecurrence_freq());
-            statement.setString(9, goal.getCreatedAt());
-            statement.setString(10, goal.getModifiedAt());
+            statement.setInt(7, goal.getRecurrenceNum());
+            statement.setString(8, goal.getRecurrenceFreq());
+            statement.setString(9, goal.getRecurrenceDate());
+            statement.setString(10, goal.getCreatedAt());
+            statement.setString(11, goal.getModifiedAt());
             return statement;
         }, keyHolder);
 
@@ -87,10 +88,11 @@ public class GoalRepository {
     //update
     public boolean update(Goal goal) {
         String sql = "UPDATE goal " +
-                "SET goal = ?, description = ?, progress = ?, target = ?, due_date = ?, user_id = ?, created_at = ?, modified_at = ? " +
+                "SET goal = ?, description = ?, progress = ?, target = ?, due_date = ?, user_id = ?, recurrence_num, recurrence_freq, recurrence_date, created_at = ?, modified_at = ? " +
                 "WHERE id = ?";
-        Object[] params = new Object[]{goal.getGoal(), goal.getDescription(), goal.getProgress(), goal.getTarget(),
-                goal.getDueDate(), goal.getUserId(), goal.getCreatedAt(), goal.getModifiedAt(), goal.getId()
+        Object[] params = new Object[]{goal.getGoal(), goal.getDescription(), goal.getProgress(), goal.getTarget()
+            , goal.getDueDate(), goal.getUserId(), goal.getRecurrenceNum(), goal.getRecurrenceFreq()
+            , goal.getRecurrenceDate(), goal.getCreatedAt(), goal.getModifiedAt(), goal.getId()
         };
         return this.jdbcTemplate.update(sql, params) == 1;
     }
