@@ -8,14 +8,12 @@ import cist4830.unomaha.tempo.repository.GoalRepository;
 import cist4830.unomaha.tempo.repository.TagRepository;
 import cist4830.unomaha.tempo.repository.UserRepository;
 import cist4830.unomaha.tempo.services.CustomUserDetailsService;
+import cist4830.unomaha.tempo.controllers.utility.GetLoggedInUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.security.core.context.SecurityContextHolder;
-import cist4830.unomaha.tempo.services.CustomUserPrincipal;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -43,7 +41,7 @@ public class GoalController {
     @GetMapping
     public String index(Model model) {
         LOG.info("Tempo index page requested");
-        User user = getLoggedInUser();
+        User user = GetLoggedInUser.getLoggedInUser();
         List<Goal> goals = goalRepository.findAllByUserId(user.getId());
         model.addAttribute("goals", goals);
         return "goals/index";
@@ -51,7 +49,7 @@ public class GoalController {
 
     @GetMapping(value = "/create")
     public String create(Model model) {
-        User user = getLoggedInUser();
+        User user = GetLoggedInUser.getLoggedInUser();
         List<Goal> goals = goalRepository.findAllByUserId(user.getId());
         model.addAttribute("goals", goals); // only user's goals
         model.addAttribute("tags", tagRepository.findAll()); // all tags from every user
@@ -67,7 +65,7 @@ public class GoalController {
             , @RequestParam(name = "recurrence_num", required = false) Integer recurrence_num
             , @RequestParam(name = "recurrence_freq", required = false) String recurrence_freq
             , @RequestParam(name = "tags") Optional<List<Long>> tag_ids) {
-        User user = getLoggedInUser();
+        User user = GetLoggedInUser.getLoggedInUser();
         java.util.Date utilDate = new java.util.Date();
         String now = new Date(utilDate.getTime()).toString();
         List<Tag> tags = ((List<Long>) tag_ids.orElse(new ArrayList())).stream()
@@ -90,7 +88,7 @@ public class GoalController {
 
     @GetMapping(value = "{id}/edit")
     public String edit(Model model, @PathVariable Long id) {
-        User user = getLoggedInUser();
+        User user = GetLoggedInUser.getLoggedInUser();
         List<Goal> goals = goalRepository.findAllByUserId(user.getId());
         Goal goal = goalRepository.findGoalByIdAndUserId(id, user.getId()).orElseThrow(() -> {
             throw new ResourceNotFoundException();
@@ -144,7 +142,7 @@ public class GoalController {
 
     @GetMapping(value = "{id}")
     public String show(Model model, @PathVariable Long id) {
-        User user = getLoggedInUser();
+        User user = GetLoggedInUser.getLoggedInUser();
         Goal goal = goalRepository.findGoalByIdAndUserId(id, user.getId()).orElseThrow(() -> {
             throw new ResourceNotFoundException();
         });
@@ -156,7 +154,7 @@ public class GoalController {
 
     @PostMapping(value = "{id}/delete")
     public String delete(@PathVariable Long id) {
-        User user = getLoggedInUser();
+        User user = GetLoggedInUser.getLoggedInUser();
         Goal goal = goalRepository.findGoalByIdAndUserId(id, user.getId()).orElseThrow(() -> {
             throw new ResourceNotFoundException();
         });
@@ -166,13 +164,5 @@ public class GoalController {
         }
         goalRepository.delete(id);
         return "redirect:/goals/";
-    }
-
-    public User getLoggedInUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof CustomUserPrincipal) {
-            return ((CustomUserPrincipal) principal).getUser();
-        }
-        return null;
     }
 }

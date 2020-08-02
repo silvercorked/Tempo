@@ -14,6 +14,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
+    <style>
+        .goal {
+            color: white;
+        }
+        .goal:hover {
+            background-color: #007bff;
+            color: white;
+            text-decoration: none !important;
+        }
+    </style>
     <title>Goals</title>
 </head>
 <body>
@@ -30,34 +40,34 @@
                 </div>
                 <hr width="100%" align="left">
             </div>
-            <div class="row">
-                <div class="col-3">
+            <div class="row font-weight-bold">
+                <div class="col-4">
                     <p>Goal</p>
                 </div>
-                <div class="col-5">
+                <div class="col-6">
                     <p>Description</p>
                 </div>
-                <div class="col-4" >
+                <div class="col-2" >
                     <p>Due Date</p>
                 </div>
                 <hr width="100%" align="left">
             </div>
 
             <div class="row" th:each="goal: ${goals}">
-                <div class="col-3">
-                    <p th:text="${goal.goal}"></p>
-                </div>
-                <div class="col-5">
-                    <p th:text="${goal.description}"></p>
-                </div>
-                <div class="col-3">
-                    <p th:text="${goal.dueDate}"></p>
-                </div>
-                <div class="col-2">
-                    <p th:text="${goal.dueDate}"></p>
-                </div>
-                <div class="col-2">
-                    <a class="btn btn-primary float-right" th:href="'/goals/' + ${goal.id}">View</a>
+                <div class="col-12">
+                    <a th:href="'/goals/' + ${goal.id}" class="text-decoration-none">
+                        <div class="row goal rounded">
+                            <div class="col-4">
+                                <p class="my-3" th:text="${goal.goal}"></p>
+                            </div>
+                            <div class="col-6 text-wrap-ellipse">
+                                <p class="my-3" th:text="${goal.description}"></p>
+                            </div>
+                            <div class="col-2">
+                                <p class="my-3" th:text="${goal.dueDateFormatted}"></p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
                 <hr width="100%" align="left">
             </div>

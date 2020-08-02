@@ -27,8 +27,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-
-            <div class="btn-group">
+            <div class="btn-group nav-item">
                 <div class="dropdown">
                     <button class="btn btn-secondary btn-sm dropdown-toggle mr-2" type="button" id="goalsMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,9 +54,11 @@
                     </div>
                 </div>
             </div>
-            <div sec:authorize="isAuthenticated()" class="float-right">
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <div sec:authorize="isAuthenticated()" class="nav-item">
                 <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="Sign Out"/>
+                    <input class="form-control" type="submit" value="Sign Out"/>
                 </form>
             </div>
         </ul>
