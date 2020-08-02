@@ -15,45 +15,6 @@
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
     <title>Tags</title>
-    <!--</head>-->
-    <!--<body>-->
-    <!--    <div th:replace="fragments/header :: header"> &lt;!&ndash; the header is causing an issue that the remaining aspects are not rendering &ndash;&gt;-->
-    <!--    <div class="container">-->
-    <!--        <div class="row">-->
-    <!--            <div class="col-12">-->
-    <!--                <div class="row">-->
-    <!--                    <div class="col-8">-->
-    <!--                        <p class="h2">Goals</p>-->
-    <!--                    </div>-->
-    <!--                    <div class="col-4">-->
-    <!--                        <a class="btn btn-primary float-right" href="/tags/create">Create an Index</a>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--                <div class="row">-->
-    <!--                    <div class="col-4">-->
-    <!--                        <p>Tag</p>-->
-    <!--                    </div>-->
-    <!--                    <div class="col-6">-->
-    <!--                        <p>Associated Goal</p>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--                <div class="row" th:each="goal: ${goals}">-->
-    <!--                    <div class="col-4">-->
-    <!--                        <p th:text="${goal.goal}"></p>-->
-    <!--                    </div>-->
-    <!--                    <div class="col-6">-->
-    <!--                        <p th:text="${goal.description}"></p>-->
-    <!--                    </div>-->
-    <!--                    <div class="col-2">-->
-    <!--                        <a class="btn btn-primary float-right" th:href="'/goals/' + ${goal.id}">View</a>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--    </div>-->
-    <!--</body>-->
-    <!--</html>-->
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
@@ -86,7 +47,7 @@
                     <p th:text="${tag.description}"></p>
                 </div>
                 <div class="col-2">
-                    <a class="btn btn-primary float-right" th:href="'/' + ${tag.id}">View</a>
+                    <a class="btn btn-primary float-right" th:href="'/tags/' + ${tag.id}">View</a>
                 </div>
                 <hr width="100%" align="left">
             </div>

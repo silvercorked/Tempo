@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import cist4830.unomaha.tempo.controllers.utility.GetLoggedInUser;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +39,8 @@ public class UserController {
 
     @GetMapping(value = "register")
     public String create() {
+        if (GetLoggedInUser.getLoggedInUser() != null)
+            return "redirect:/";
         return "users/create";
     }
 
@@ -69,7 +72,4 @@ public class UserController {
     public String delete(@PathVariable Long id) {
         return "redirect:/users";
     }
-
-
-
 }

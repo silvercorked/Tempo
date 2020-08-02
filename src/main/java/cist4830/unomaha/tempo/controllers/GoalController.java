@@ -3,9 +3,13 @@ package cist4830.unomaha.tempo.controllers;
 import cist4830.unomaha.tempo.controllers.errors.ResourceNotFoundException;
 import cist4830.unomaha.tempo.model.Goal;
 import cist4830.unomaha.tempo.model.Tag;
+import cist4830.unomaha.tempo.model.User;
 import cist4830.unomaha.tempo.repository.GoalRepository;
 import cist4830.unomaha.tempo.repository.TagRepository;
 import cist4830.unomaha.tempo.repository.UserRepository;
+import cist4830.unomaha.tempo.services.CustomUserDetailsService;
+import cist4830.unomaha.tempo.controllers.utility.GetLoggedInUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,13 +41,18 @@ public class GoalController {
     @GetMapping
     public String index(Model model) {
         LOG.info("Tempo index page requested");
-        model.addAttribute("goals", goalRepository.findAll());
+        User user = GetLoggedInUser.getLoggedInUser();
+        List<Goal> goals = goalRepository.findAllByUserId(user.getId());
+        model.addAttribute("goals", goals);
         return "goals/index";
     }
 
     @GetMapping(value = "/create")
     public String create(Model model) {
-        model.addAttribute("tags", tagRepository.findAll());
+        User user = GetLoggedInUser.getLoggedInUser();
+        List<Goal> goals = goalRepository.findAllByUserId(user.getId());
+        model.addAttribute("goals", goals); // only user's goals
+        model.addAttribute("tags", tagRepository.findAll()); // all tags from every user
         return "goals/create";
     }
 
@@ -55,6 +65,7 @@ public class GoalController {
             , @RequestParam(name = "recurrence_num", required = false) Integer recurrence_num
             , @RequestParam(name = "recurrence_freq", required = false) String recurrence_freq
             , @RequestParam(name = "tags") Optional<List<Long>> tag_ids) {
+        User user = GetLoggedInUser.getLoggedInUser();
         java.util.Date utilDate = new java.util.Date();
         String now = new Date(utilDate.getTime()).toString();
         List<Tag> tags = ((List<Long>) tag_ids.orElse(new ArrayList())).stream()
@@ -67,7 +78,7 @@ public class GoalController {
             stringdate= due_date.toString();
         }
         Goal goal = new Goal((long) 0, null, goalstr, description, progress, target, stringdate
-                , recurrence_num, recurrence_freq, (long) 1, now, now);
+                , recurrence_num, recurrence_freq, user.getId(), now, now);
         LOG.info("Creating new goal with name: " + goalstr + " description: " + description
         + " recurring every " + recurrence_num + " " + recurrence_freq);
         goalRepository.create(goal);
@@ -77,9 +88,12 @@ public class GoalController {
 
     @GetMapping(value = "{id}/edit")
     public String edit(Model model, @PathVariable Long id) {
-        Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> {
+        User user = GetLoggedInUser.getLoggedInUser();
+        List<Goal> goals = goalRepository.findAllByUserId(user.getId());
+        Goal goal = goalRepository.findGoalByIdAndUserId(id, user.getId()).orElseThrow(() -> {
             throw new ResourceNotFoundException();
         });
+        model.addAttribute("goals", goal);
         model.addAttribute("goal", goal);
         model.addAttribute("tags", tagRepository.findAll());
         model.addAttribute("selectedTags", goalRepository.getTags(goal));
@@ -128,7 +142,8 @@ public class GoalController {
 
     @GetMapping(value = "{id}")
     public String show(Model model, @PathVariable Long id) {
-        Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> {
+        User user = GetLoggedInUser.getLoggedInUser();
+        Goal goal = goalRepository.findGoalByIdAndUserId(id, user.getId()).orElseThrow(() -> {
             throw new ResourceNotFoundException();
         });
         List<Tag> tags = goalRepository.getTags(goal);
@@ -139,10 +154,14 @@ public class GoalController {
 
     @PostMapping(value = "{id}/delete")
     public String delete(@PathVariable Long id) {
-        Goal goal = goalRepository.findGoalById(id).orElseThrow(() -> {
+        User user = GetLoggedInUser.getLoggedInUser();
+        Goal goal = goalRepository.findGoalByIdAndUserId(id, user.getId()).orElseThrow(() -> {
             throw new ResourceNotFoundException();
         });
         // ^^ check if it exists first
+        if (user.getId().equals(goal.getUserId())) {
+            goalRepository.getTags(goal).stream().forEach((tag) -> goalRepository.disassociateTag(goal, tag));
+        }
         goalRepository.delete(id);
         return "redirect:/goals/";
     }
