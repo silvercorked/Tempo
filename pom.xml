@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -10,15 +9,37 @@
 	</parent>
 	<groupId>cist4830.unomaha</groupId>
 	<artifactId>tempo</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>tempo</name>
 	<description>A goal tracking app developed at the University of Nebraska at Omaha.</description>
-
+        <developers>                                                                                                       
+             <developer>                                                                                                   
+               <id>bbartenbach</id>                                                                                        
+               <name>Blake Bartenbach</name>                                                                               
+               <roles>                                                                                                     
+                 <role>Project Manager, Developer, Quality Assurance Testing Lead</role>                                   
+               </roles>                                                                                                    
+             </developer>                                                                                                  
+             <developer>                                                                                                   
+               <id>cmaly</id>                                                                                              
+               <name>Cole Maly</name>                                                                                      
+               <roles>                                                                                                     
+                 <role>Requirements Engineer, Developer, Scribe</role>                                                     
+               </roles>                                                                                                    
+             </developer>                                                                                                  
+             <developer>                                                                                                   
+               <id>awissing</id>                                                                                           
+               <name>Blake Bartenbach</name>                                                                               
+               <roles>                                                                                                     
+                 <role>Software Architect, Developer, Tech Support</role>                                                  
+               </roles>                                                                                                    
+             </developer>                                                                                                  
+        </developers> 
     <properties>
         <java.version>14</java.version>
         <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
         <flyway.user>sa</flyway.user>
-        <flyway.password></flyway.password>
+        <flyway.password/>
     </properties>
 
     <dependencies>
@@ -131,7 +152,7 @@
                 <version>4.0.3</version>
                 <configuration>
                     <user>sa</user>
-                    <password></password>
+                    <password/>
                 </configuration>
             </plugin>
         </plugins>
