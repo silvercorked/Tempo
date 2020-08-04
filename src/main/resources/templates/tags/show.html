@@ -38,7 +38,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a th:each="goal: ${goals}" th:href="'/' + ${goal.id}">
+                    <a th:each="goal: ${goals}" th:href="'/goals/' + ${goal.id}">
                         <p th:text="${goal.goal}"></p>
                     </a>
                 </div>

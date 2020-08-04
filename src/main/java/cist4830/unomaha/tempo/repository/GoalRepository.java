@@ -59,6 +59,19 @@ public class GoalRepository {
         return this.jdbcTemplate.query(sql, new GoalMapper());
     }
 
+    public List<Goal> findAllByUserId(Long userId) {
+        String sql = "SELECT * FROM goal WHERE user_id = ?";
+        return this.jdbcTemplate.query(sql, new Object[]{userId}, new GoalMapper());
+    }
+
+    public Optional<Goal> findGoalByIdAndUserId(Long id, Long userId) {
+        String sql = "SELECT * FROM goal WHERE id = ? AND user_id = ?";
+        return this.jdbcTemplate.query(sql,
+                rs -> rs.next() ? Optional.ofNullable(new GoalMapper().mapRow(rs, 1)) : Optional.empty()
+                , id, userId
+        );
+    }
+
     //retrieve
     public Optional<Goal> findById(Long id) {
         String sql = "SELECT * FROM goal WHERE id = ?";
@@ -123,7 +136,7 @@ public class GoalRepository {
     //dissociate a tag
     public boolean disassociateTag(Goal goal, Tag tag) {
         String sql = "DELETE FROM goal_tag_assoc WHERE goal_id = ? AND tag_id = ?";
-        return this.jdbcTemplate.update(sql, goal.getId(), tag.getId()) == 1;
+        return this.jdbcTemplate.update(sql, new Object[]{goal.getId(), tag.getId()}) == 1;
     }
 
     //gather tags

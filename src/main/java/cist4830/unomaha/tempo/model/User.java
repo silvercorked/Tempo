@@ -1,6 +1,11 @@
 package cist4830.unomaha.tempo.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 998876L;
+
     private Long id;
     private String name;
     private String username;
