@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @Component
 @Repository
+@CrossOrigin(origins = "http://localhost:4200")
 public class GoalRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -76,6 +78,7 @@ public class GoalRepository {
         String sql = "UPDATE goal " +
                 "SET goal = ?, description = ?, progress = ?, target = ?, due_date = ?, user_id = ?, created_at = ?, modified_at = ? " +
                 "WHERE id = ?";
+        // TODO this needs the recurrence information
         Object[] params = new Object[]{goal.getGoal(), goal.getDescription(), goal.getProgress(), goal.getTarget(),
                 goal.getDueDate(), goal.getUserId(), goal.getCreatedAt(), goal.getModifiedAt(), goal.getId()
         };
