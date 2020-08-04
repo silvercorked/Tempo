@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>cist4830.unomaha</groupId>
 	<artifactId>tempo</artifactId>
-	<version>0.0.3</version>
+	<version>1.0.0</version>
 	<name>tempo</name>
 	<description>A goal tracking app developed at the University of Nebraska at Omaha.</description>
         <developers>                                                                                                       
