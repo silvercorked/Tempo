@@ -21,10 +21,7 @@ This application is the repository for the Tempo Goal Tracking Web application.
 
 ## Release Notes:
  - the route at "/" is the main landing page of the Tempo application.
- - the route "/users" creates a demo user and *must be run first* before using the application!
- - the route "/create" allows users to create a new goal.
+ - the route "/users" creates allows administrative users to manage users.
+ - the route "/goals" allows users to manage their personal goals.
  - the route "/tags" allows users to manage tags.
  - the database is loaded in memory and is connected to our system.
- - models are done.
- - repositories are done.
- - thymeleaf, flyway, jdbc, and spring security are all configured.
