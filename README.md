@@ -10,7 +10,7 @@ This application is the repository for the Tempo Goal Tracking Web application.
  - update application.properties with port, username and password information.
  - run command `mvn clean install` to install dependancies.
  - run command `mvn spring-boot:run` to run program.
- - Navigate to http://loaclhost:8080 - This is the home page for the Tempo app.
+ - Navigate to http://localhost:8080 - This is the home page for the Tempo app.
  - Click register to create an account, and login to start creating goals!
  
 ## Functions:
