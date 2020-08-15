@@ -18,13 +18,18 @@ This application is the repository for the Tempo Goal Tracking Web application.
  - Additionally the /users tag is used to create a test user as mentioned in the running instructions above.
    - Some pages may process as errors if the user is not first created.
  - Current functionality includes goal and tag creation, read, update, and delete (CRUD) functionality.
+ - Registration and Login functionality
+ - RESTful API via /api
+ - Angular Tempo client prototype here: https://github.com/proxa/Tempo-Client
 
 ## Release Notes:
  - the route at "/" is the main landing page of the Tempo application.
  - the route "/users" creates a demo user and *must be run first* before using the application!
  - the route "/create" allows users to create a new goal.
  - the route "/tags" allows users to manage tags.
+ - the route "/api" returns JSON data containing all current goals.
  - the database is loaded in memory and is connected to our system.
  - models are done.
  - repositories are done.
  - thymeleaf, flyway, jdbc, and spring security are all configured.
+ - Account registration and login functionality completed.
